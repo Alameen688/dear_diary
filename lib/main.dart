@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'auth/login.dart';
+import 'auth/sign_up.dart';
 import 'entries/list_entries.dart';
 import 'intro/intro.dart';
 
@@ -34,6 +35,7 @@ class DearDiary extends StatelessWidget {
       routes: {
         '/': (context) => Intro(),
         '/login': (context) => Login(),
+        '/signup': (context) => SignUp(),
         '/list-entries': (context) => ListEntries(),
       },
     );
