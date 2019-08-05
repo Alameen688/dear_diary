@@ -15,7 +15,7 @@ class _ListEntriesState extends State<ListEntries> {
               itemCount: entriesData.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  margin: EdgeInsets.only(bottom: 30.0),
+                  margin: EdgeInsets.only(bottom: 15.0, top: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -31,10 +31,18 @@ class _ListEntriesState extends State<ListEntries> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
+                                    colorFilter: ColorFilter.mode(
+                                        Color(0xFF3C4858), BlendMode.lighten),
                                     image: AssetImage(
                                       entriesData[index].imageUrl,
                                     ),
                                     fit: BoxFit.cover),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xFF3C4858).withOpacity(.4),
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 10.0),
+                                ],
                               ),
                             ),
                             Positioned(
@@ -42,8 +50,9 @@ class _ListEntriesState extends State<ListEntries> {
                               top: 30.0,
                               //the center = (height of image container/2) - (height of this container/2)
                               child: Container(
-                                width: 150,
+                                width: 180,
                                 height: 190,
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10.0),
@@ -56,18 +65,48 @@ class _ListEntriesState extends State<ListEntries> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Text(
                                         entriesData[index].title,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: 22.0),
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0),
                                       ),
-                                      SizedBox(
-                                        height: 40.0,
-                                      ),
-                                      Text(entriesData[index].date)
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.event_note,
+                                                  size: 18.0,
+                                                  color: Color(0xFF3C4858),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Text(entriesData[index].date),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.arrow_forward,
+                                                  size: 26.0,
+                                                  color: Colors.blueGrey,
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -81,15 +120,17 @@ class _ListEntriesState extends State<ListEntries> {
                 );
               }),
         ),
-        bottomNavigationBar:
-            BottomNavigationBar(items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Profile'))
-        ]),
+        bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), title: Text('Profile'))
+            ]),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xFF3C4858),
           onPressed: () => debugPrint('add entry'),
