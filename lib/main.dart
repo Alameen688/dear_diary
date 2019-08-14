@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'auth/login.dart';
-import 'auth/sign_up.dart';
-import 'entries/list_entries.dart';
-import 'entries/view_entry.dart';
-import 'intro/intro.dart';
+import 'ui/auth/login.dart';
+import 'ui/auth/sign_up.dart';
+import 'ui/entries/list_entries.dart';
+import 'ui/entries/view_entry.dart';
+import 'ui/intro/intro.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
