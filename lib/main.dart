@@ -4,10 +4,11 @@ import 'package:flutter/services.dart';
 import 'auth/login.dart';
 import 'auth/sign_up.dart';
 import 'entries/list_entries.dart';
+import 'entries/view_entry.dart';
 import 'intro/intro.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  SystemChrome.setEnabledSystemUIOverlays([]);
   return runApp(DearDiary());
 }
 
@@ -27,6 +28,8 @@ class DearDiary extends StatelessWidget {
               borderSide: BorderSide(color: Colors.black45, width: 2.0),
             ),
           ),
+          primaryColor: Color(0xFF3C4858),
+          primaryIconTheme: IconThemeData(color: Color(0xFF3C4858)),
           textTheme: TextTheme(
             title: TextStyle(color: Color(0xFF414A53)),
             subhead: TextStyle(color: Color(0xFF686B6F)),
