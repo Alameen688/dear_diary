@@ -40,6 +40,7 @@ class DearDiary extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
         '/list-entries': (context) => ListEntries(),
+        '/view-entry': (context) => ViewEntry(),
       },
     );
   }
