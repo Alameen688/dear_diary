@@ -1,5 +1,9 @@
+import 'package:dear_diary/notifiers/user.dart';
+import 'package:dear_diary/ui/common/diray_alert.dart';
+import 'package:dear_diary/utils/input_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -8,6 +12,8 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   TapGestureRecognizer _loginTapRecognizer;
+  final _signUpFormKey = GlobalKey<FormState>();
+  Map<String, String> _formData = {};
 
   @override
   void initState() {
@@ -64,148 +70,192 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 25.0,
               ),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Let me",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 40.0),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          "get to know you",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text('Full Name'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 20.0),
-                    child: TextFormField(
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                          hintText: 'What should I call you?',
-                          suffixIcon: Icon(Icons.person_outline)),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text('Email'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 20.0),
-                    child: TextFormField(
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                          hintText: 'How can I reach you',
-                          suffixIcon: Icon(Icons.alternate_email)),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text('Password'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 20.0),
-                    child: TextFormField(
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                          hintText: 'Our litte secret',
-                          suffixIcon: Icon(Icons.lock_outline)),
-                      obscureText: true,
-                    ),
-                  ),
-                  Container(
-                    width: 320,
-                    height: 60,
-                    margin: EdgeInsets.only(top: 40, bottom: 30.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color(0xFF3C4858).withOpacity(.4),
-                            offset: Offset(10.0, 10.0),
-                            blurRadius: 10.0),
-                      ],
-                    ),
-                    child: RaisedButton(
-                      color: Color(0xFF3C4858),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/list-entries');
-                      },
+              child: Form(
+                key: _signUpFormKey,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
                       child: Row(
                         children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.only(left: 40.0),
-                              child: Text(
-                                'Create Account',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18.0),
-                              ),
+                          Text(
+                            "Let me",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
-                          Container(
-                            height: 40.0,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.white),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Color(0xFF3C4858),
-                              size: 20.0,
-                            ),
-                          )
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    child: RichText(
+                    Container(
+                      margin: EdgeInsets.only(bottom: 40.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "get to know you",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text('Name'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      child: TextFormField(
+                        validator: InputValidator.name,
+                        onSaved: (value) => _formData['fullname'] = value,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                            hintText: 'What should I call you?',
+                            suffixIcon: Icon(Icons.person_outline)),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text('Email'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      child: TextFormField(
+                        validator: InputValidator.email,
+                        onSaved: (value) => _formData['email'] = value,
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                            hintText: 'How can I reach you?',
+                            suffixIcon: Icon(Icons.alternate_email)),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text('Password'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      child: TextFormField(
+                        validator: InputValidator.password,
+                        onSaved: (value) => _formData['password'] = value,
+                        obscureText: true,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                            hintText: 'Our litte secret',
+                            suffixIcon: Icon(Icons.lock_outline)),
+                      ),
+                    ),
+                    Container(
+                      width: 320,
+                      height: 60,
+                      margin: EdgeInsets.only(top: 40, bottom: 30.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color(0xFF3C4858).withOpacity(.4),
+                              offset: Offset(10.0, 10.0),
+                              blurRadius: 10.0),
+                        ],
+                      ),
+                      child: RaisedButton(
+                        color: Color(0xFF3C4858),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        onPressed: () {
+                          final form = _signUpFormKey.currentState;
+                          if (form.validate()) {
+                            form.save();
+                            _handleSignUp();
+                          }
+                          debugPrint('not working');
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                margin: EdgeInsets.only(left: 40.0),
+                                child: Provider.of<UserModel>(context).isLoading
+                                    ? CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation(
+                                            Colors.white),
+                                      )
+                                    : Text(
+                                        'Create Account',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0),
+                                      ),
+                              ),
+                            ),
+                            Container(
+                              height: 40.0,
+                              width: 40.0,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: Color(0xFF3C4858),
+                                size: 20.0,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: RichText(
                         text: TextSpan(
                             style: Theme.of(context).textTheme.body1,
                             children: [
-                          TextSpan(
-                            text: 'Already have an account? ',
-                          ),
-                          TextSpan(
-                              text: 'Login',
-                              style: TextStyle(color: Color(0xFF3C4858)),
-                              recognizer: _loginTapRecognizer),
-                        ])),
-                  ),
-                ],
+                              TextSpan(
+                                text: 'Already have an account? ',
+                              ),
+                              TextSpan(
+                                  text: 'Login',
+                                  style: TextStyle(color: Color(0xFF3C4858)),
+                                  recognizer: _loginTapRecognizer),
+                            ]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
       )),
     );
+  }
+
+
+  void _handleSignUp() async {
+    final int statusCode =
+        await Provider.of<UserModel>(context, listen: false).create(_formData);
+    if (statusCode != 201) {
+      final String message =
+          Provider.of<UserModel>(context, listen: false).message;
+      return showDialog(
+          context: context,
+          builder: (_) => DiaryAlert(
+                message: message,
+                onPressed: () => Navigator.of(context).pop(),
+              ));
+    }
+    showDialog(
+        context: context,
+        builder: (_) => DiaryAlert(
+              message: "Yay! Your account has been created. Continue!",
+              onPressed: () => Navigator.of(context).popAndPushNamed('/login'),
+            ));
   }
 
   @override
