@@ -9,6 +9,10 @@ import 'ui/intro/intro.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   return runApp(DearDiary());
 }
 
