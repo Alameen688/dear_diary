@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   }
 
   _handleSignInTap() {
-    Navigator.of(context).pushNamed('/signup');
+    Navigator.of(context).pushNamed('signup');
   }
 
   @override

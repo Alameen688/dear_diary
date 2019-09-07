@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'notifiers/entry.dart';
 import 'notifiers/user.dart';
 import 'ui/auth/login.dart';
 import 'ui/auth/sign_up.dart';
 import 'ui/entries/list_entries.dart';
 import 'ui/entries/view_entry.dart';
 import 'ui/intro/intro.dart';
+import 'ui/root.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -46,11 +48,12 @@ class DearDiary extends StatelessWidget {
           )),
       initialRoute: '/',
       routes: {
-        '/': (context) => Intro(),
-        '/login': (context) => Login(),
-        '/signup': (context) => SignUp(),
-        '/list-entries': (context) => ListEntries(),
-        '/view-entry': (context) => ViewEntry(),
+        '/': (context) => Root(),
+        'intro': (context) => Intro(),
+        'login': (context) => Login(),
+        'signup': (context) => SignUp(),
+        'list-entries': (context) => ListEntries(),
+        'view-entry': (context) => ViewEntry(),
       },
     );
   }

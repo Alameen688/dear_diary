@@ -22,7 +22,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   _handleLoginTap() {
-    Navigator.of(context).pushNamed('/login');
+    Navigator.of(context).pushNamed('login');
   }
 
   @override
@@ -254,7 +254,7 @@ class _SignUpState extends State<SignUp> {
         context: context,
         builder: (_) => DiaryAlert(
               message: "Yay! Your account has been created. Continue!",
-              onPressed: () => Navigator.of(context).popAndPushNamed('/login'),
+              onPressed: () => Navigator.of(context).popAndPushNamed('login'),
             ));
   }
 

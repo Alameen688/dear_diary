@@ -30,7 +30,7 @@ class Intro extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/signup');
+                      Navigator.of(context).pushNamed('signup');
                     },
                     child: Text(
                       'Create Account',
@@ -48,7 +48,7 @@ class Intro extends StatelessWidget {
                         side: BorderSide(color: Color(0xFFC4C4C4), width: 1.2),
                         borderRadius: BorderRadius.circular(30.0)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
+                      Navigator.of(context).pushNamed('login');
                     },
                     child: Text(
                       'Login',
