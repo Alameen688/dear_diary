@@ -111,6 +111,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         validator: InputValidator.name,
                         onSaved: (value) => _formData['fullname'] = value,
+                        cursorColor: Color(0xFF3C4858),
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -128,6 +129,7 @@ class _SignUpState extends State<SignUp> {
                         validator: InputValidator.email,
                         onSaved: (value) => _formData['email'] = value,
                         keyboardType: TextInputType.emailAddress,
+                        cursorColor: Color(0xFF3C4858),
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -145,6 +147,7 @@ class _SignUpState extends State<SignUp> {
                         validator: InputValidator.password,
                         onSaved: (value) => _formData['password'] = value,
                         obscureText: true,
+                        cursorColor: Color(0xFF3C4858),
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -235,7 +238,6 @@ class _SignUpState extends State<SignUp> {
       )),
     );
   }
-
 
   void _handleSignUp() async {
     final int statusCode =
