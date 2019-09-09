@@ -1,4 +1,5 @@
 import 'package:dear_diary/services/user_service.dart';
+import 'package:dear_diary/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Response;
 import 'dart:convert' show jsonDecode;
@@ -22,10 +23,32 @@ class UserModel with ChangeNotifier {
     Response response = await userService.signUp(formData);
     _isLoading = false;
     notifyListeners();
+    _message = '';
     if (response.statusCode != 201) {
-      var data = jsonDecode(response.body);
-      _message = data['message'];
+      var resBody = jsonDecode(response.body);
+      _message = resBody['message'];
     }
     return response.statusCode;
   }
+
+  login(Map<String, String> formData) async {
+    _isLoading = true;
+    notifyListeners();
+    _message = '';
+    Response response = await userService.login(formData);
+    _isLoading = false;
+    notifyListeners();
+    var resBody = jsonDecode(response.body);
+    if (response.statusCode != 200) {
+      _message = resBody['message'];
+    }
+    else {
+      final String token = resBody['data']['token'] ?? '';
+      if (token.isNotEmpty) {
+        AuthHelper.saveInfo(token);
+      }
+    }
+    return response.statusCode;
+  }
+
 }
