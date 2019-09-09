@@ -1,3 +1,4 @@
+import 'package:dear_diary/ui/entries/add_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,10 @@ void main() {
   return runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       builder: (context) => UserModel(),
-    )
+    ),
+    ChangeNotifierProvider(
+      builder: (context) => EntryModel(),
+    ),
   ], child: DearDiary()));
 }
 
@@ -54,6 +58,7 @@ class DearDiary extends StatelessWidget {
         'signup': (context) => SignUp(),
         'list-entries': (context) => ListEntries(),
         'view-entry': (context) => ViewEntry(),
+        'add-entry': (context) => AddEntry(),
       },
     );
   }
