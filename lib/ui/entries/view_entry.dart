@@ -1,5 +1,8 @@
 import 'package:dear_diary/models/entry.dart';
+import 'package:dear_diary/notifiers/entry.dart';
+import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ViewEntry extends StatefulWidget {
   static const routeName = 'view-entry';
@@ -203,7 +206,7 @@ class _ViewEntryState extends State<ViewEntry>
                         Transform.translate(
                           offset: _optionsDelayedAnimation.value,
                           child: InkResponse(
-                            onTap: () {},
+                            onTap: () => _onDeleteClicked(entry.id),
                             child: Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -250,6 +253,41 @@ class _ViewEntryState extends State<ViewEntry>
 
   void _closeOptions() {
     _optionsAnimationController.reverse();
+  }
+
+  void _onDeleteClicked(int entryId) {
+    showDialog(
+      context: context,
+      builder: (_) => DiaryAlert(
+          message: "Are you sure you want to delete this?",
+          onPressed: () => _deleteConfirmed(entryId)),
+    );
+  }
+
+  void _deleteConfirmed(int entryId) async {
+    Navigator.of(context).pop();
+    final statusCode =
+        await Provider.of<EntryModel>(context, listen: false).delete(entryId);
+    if (statusCode != 204) {
+      debugPrint('An error occured');
+      String message = Provider.of<EntryModel>(context, listen: false).message;
+      showDialog(
+        context: context,
+        builder: (_) => DiaryAlert(
+            message: message,
+            onPressed: () => Navigator.of(context).pop()),
+      );
+      return;
+    }
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => DiaryAlert(
+          message:
+              "Okay! here you go. Entry deleted successfully!",
+          onPressed: () =>
+              Navigator.of(context).popAndPushNamed('home')),
+    );
   }
 
   @override

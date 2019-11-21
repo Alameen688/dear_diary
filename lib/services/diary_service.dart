@@ -37,4 +37,12 @@ class DiaryService {
       'content': entry['content']
     });
   }
+
+  deleteEntry(int entryId) async {
+    final String url = '$_baseUrl/entries/$entryId';
+    final String token = await AuthHelper.getUserToken();
+    return apiClient.delete(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+  }
 }

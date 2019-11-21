@@ -5,6 +5,8 @@ import 'package:dear_diary/services/diary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Response;
 
+const ERROR_MESSAGE = "😥 Something went wrong. Please try again later!";
+
 class EntryModel with ChangeNotifier {
   bool _isLoading = false;
   bool _isFetching = false;
@@ -35,7 +37,7 @@ class EntryModel with ChangeNotifier {
       }
     } catch (e) {
       _isFetching = false;
-      _message = "Something went wrong! Try again later.";
+      _message = ERROR_MESSAGE;
     }
     notifyListeners();
   }
@@ -71,15 +73,24 @@ class EntryModel with ChangeNotifier {
   delete(int entryId) async {
     _isLoading = true;
     notifyListeners();
-    Response response = await diaryService.deleteEntry(entryId);
-    _isLoading = false;
-    notifyListeners();
-    var resBody = jsonDecode(response.body);
-    print(resBody['message']);
-    debugPrint('${response.statusCode}');
-    if (response.statusCode != 200) {
-      _message = resBody['message'];
+    Response response;
+    try {
+      response = await diaryService.deleteEntry(entryId);
+      debugPrint(response.statusCode.toString());
+      if (response.statusCode != 204) {
+        var resBody = jsonDecode(response.body);
+        print(resBody['message']);
+        _message = resBody['message'];
+      }
+    } catch (e) {
+      print(e);
+      _isFetching = false;
+      _message = ERROR_MESSAGE;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
+
     return response.statusCode;
   }
 }
