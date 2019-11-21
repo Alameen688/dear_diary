@@ -8,7 +8,7 @@ class UserService {
   Future<Response> signUp(Map<String, String> userInfo) async {
     final String url = '$_baseUrl/auth/signup';
     return apiClient.post(url, body: {
-      'fullname': userInfo['email'],
+      'fullname': userInfo['fullname'],
       'email': userInfo['email'],
       'password': userInfo['password']
     });
