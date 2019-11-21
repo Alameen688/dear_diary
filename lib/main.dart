@@ -1,4 +1,5 @@
 import 'package:dear_diary/ui/entries/add_entry.dart';
+import 'package:dear_diary/ui/entries/edit_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,9 @@ import 'ui/entries/view_entry.dart';
 import 'ui/intro/intro.dart';
 import 'ui/root.dart';
 
-void main() {
-  SystemChrome.setEnabledSystemUIOverlays([]);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -53,12 +55,13 @@ class DearDiary extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Root(),
-        'intro': (context) => Intro(),
-        'login': (context) => Login(),
-        'signup': (context) => SignUp(),
-        'list-entries': (context) => ListEntries(),
-        'view-entry': (context) => ViewEntry(),
-        'add-entry': (context) => AddEntry(),
+        Intro.routeName: (context) => Intro(),
+        Login.routeName: (context) => Login(),
+        SignUp.routeName: (context) => SignUp(),
+        ListEntries.routeName: (context) => ListEntries(),
+        ViewEntry.routeName: (context) => ViewEntry(),
+        AddEntry.routeName: (context) => AddEntry(),
+        EditEntry.routeName: (context) => EditEntry(),
       },
     );
   }
