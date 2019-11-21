@@ -25,4 +25,16 @@ class DiaryService {
       'content': entry['content']
     });
   }
+
+  Future<Response> updateEntry(Map<String, dynamic> entry) async {
+    print('${entry['id']}');
+    final String url = '$_baseUrl/entries/${entry['id']}';
+    final String token = await AuthHelper.getUserToken();
+    return apiClient.put(url, headers: {
+      'Authorization': 'Bearer $token',
+    }, body: {
+      'title': entry['title'],
+      'content': entry['content']
+    });
+  }
 }
