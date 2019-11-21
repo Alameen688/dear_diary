@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'intro_slide.dart';
 
 class Intro extends StatelessWidget {
+  static const routeName = 'intro';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

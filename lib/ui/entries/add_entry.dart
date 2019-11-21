@@ -1,11 +1,13 @@
 import 'package:dear_diary/notifiers/entry.dart';
-import 'package:dear_diary/ui/common/diray_alert.dart';
+import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class AddEntry extends StatefulWidget {
+  static const routeName = 'add-entry';
+
   AddEntry({Key key}) : super(key: key);
 
   _AddEntryState createState() => _AddEntryState();

@@ -1,11 +1,13 @@
 import 'package:dear_diary/notifiers/user.dart';
-import 'package:dear_diary/ui/common/diray_alert.dart';
+import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
+  static const routeName = 'signup';
+  
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -178,7 +180,6 @@ class _SignUpState extends State<SignUp> {
                             form.save();
                             _handleSignUp();
                           }
-                          debugPrint('not working');
                         },
                         child: Row(
                           children: <Widget>[
