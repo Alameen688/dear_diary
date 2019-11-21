@@ -1,94 +1,137 @@
-import 'dart:math';
-
+import 'package:dear_diary/models/entry.dart';
 import 'package:flutter/material.dart';
 
 class ViewEntry extends StatefulWidget {
+  static const routeName = 'view-entry';
+
   @override
   _ViewEntryState createState() => _ViewEntryState();
 }
 
-class _ViewEntryState extends State<ViewEntry> {
+class _ViewEntryState extends State<ViewEntry>
+    with SingleTickerProviderStateMixin {
+  AnimationController _optionsAnimationController;
+  Animation<Offset> _optionsAnimation, _optionsDelayedAnimation;
+
+  bool _optionsIsOpen = false;
+  @override
+  void initState() {
+    super.initState();
+    _optionsAnimationController =
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+    _optionsAnimation = Tween<Offset>(begin: Offset(100, 0), end: Offset(0, 0))
+        .animate(CurvedAnimation(
+            parent: _optionsAnimationController, curve: Curves.easeOutBack))
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener(_setOptionsStatus);
+    _optionsDelayedAnimation =
+        Tween<Offset>(begin: Offset(100, 0), end: Offset(0, 0)).animate(
+            CurvedAnimation(
+                parent: _optionsAnimationController,
+                curve: Interval(0.2, 1.0, curve: Curves.easeOutBack)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Entry entry = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        ListView(
-          padding: EdgeInsets.only(top: 0.0),
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: 340.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    'images/entry_1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 300.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(100.0),
-                            topLeft: Radius.circular(100.0)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF3C4858).withOpacity(.4),
-                            offset: Offset(0.0, -8),
-                            blurRadius: 6,
-                          )
-                        ]),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 50.0),
-              child: Column(
+      body: Stack(
+        children: <Widget>[
+          ListView(
+            padding: EdgeInsets.only(top: 0.0),
+            physics: ClampingScrollPhysics(),
+            children: <Widget>[
+              Stack(
                 children: <Widget>[
-                  Text(
-                    'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don'
-                    't look even slightly believable. If you are going to use a'
-                    'passage of Lorem Ipsum, you need to be sure there isn'
-                    't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.',
-                    style: TextStyle(fontSize: 16.0, height: 1.2, color: Color(0xFF3C4858).withOpacity(0.8)),
+                  Hero(
+                    tag: "diary-image-0",
+                    child: Container(
+                      height: 340.0,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        image: DecorationImage(
+                            colorFilter: ColorFilter.mode(
+                                Color(0xFF3C4858), BlendMode.lighten),
+                            image: AssetImage(
+                              'images/entry_1.jpg',
+                            ),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
-                  Text(
-                    'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don'
-                    't look even slightly believable. If you are going to use a'
-                    'passage of Lorem Ipsum, you need to be sure there isn'
-                    't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.',
-                    style: TextStyle(fontSize: 16.0, height: 1.2, color: Color(0xFF3C4858).withOpacity(0.8)),
-                  )
+                  Positioned(
+                    top: 200.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        entry.title,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            letterSpacing: 0.3,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 300.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(100.0),
+                              topLeft: Radius.circular(100.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF3C4858).withOpacity(.4),
+                              offset: Offset(0.0, -8),
+                              blurRadius: 6,
+                            )
+                          ]),
+                    ),
+                  ),
                 ],
               ),
-            )
-          ],
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkResponse(
-                    onTap: () {
-                      if (Navigator.of(context).canPop()) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: Container(
+              Container(
+                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 50.0),
+                child: Text(
+                  entry.content,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      height: 1.2,
+                      color: Color(0xFF3C4858).withOpacity(0.8)),
+                ),
+              )
+            ],
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    InkResponse(
+                      onTap: () {
+                        if (Navigator.of(context).canPop()) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.white,
+                          border: Border.all(color: Colors.black12),
                           borderRadius: BorderRadius.circular(100),
                           boxShadow: [
                             BoxShadow(
@@ -97,76 +140,121 @@ class _ViewEntryState extends State<ViewEntry> {
                                 blurRadius: 10.0),
                           ],
                         ),
-                        child: Icon(Icons.arrow_downward)),
-                  ),
-                  InkResponse(
-                    child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color(0xFF3C4858).withOpacity(.5),
-                                offset: Offset(1.0, 10.0),
-                                blurRadius: 10.0),
-                          ],
+                        child: Icon(Icons.arrow_downward,
+                            color: Color(0xFF3C4858)),
+                      ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        InkResponse(
+                          onTap: _optionsIsOpen ? _closeOptions : _openOptions,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(100),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF3C4858).withOpacity(.5),
+                                    offset: Offset(1.0, 10.0),
+                                    blurRadius: 10.0),
+                              ],
+                            ),
+                            child: !_optionsIsOpen
+                                ? Icon(
+                                    Icons.more_vert,
+                                    color: Color(0xFF3C4858),
+                                  )
+                                : Icon(Icons.close, color: Color(0xFF3C4858)),
+                          ),
                         ),
-                        child: Icon(Icons.edit)),
-                  ),
-                ],
+                        Transform.translate(
+                          offset: _optionsAnimation.value,
+                          child: InkResponse(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed('edit-entry', arguments: entry);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(bottom: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(100),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xFF3C4858).withOpacity(.5),
+                                      offset: Offset(1.0, 10.0),
+                                      blurRadius: 10.0),
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.edit,
+                                color: Color(0xFF3C4858),
+                                semanticLabel: 'Edit',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: _optionsDelayedAnimation.value,
+                          child: InkResponse(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(100),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xFF3C4858).withOpacity(.5),
+                                      offset: Offset(1.0, 10.0),
+                                      blurRadius: 10.0),
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.delete_outline,
+                                color: Colors.red.shade400,
+                                semanticLabel: 'Delete',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    ));
-  }
-}
-
-class InvertedBorderClipper extends CustomClipper<Path> {
-  num degToRad(num deg) => deg * (pi / 180.0);
-
-  @override
-  Path getClip(Size size) {
-    debugPrint('$size');
-    Path path = Path()..fillType = PathFillType.evenOdd;
-//    path.moveTo(0, size.height/2);
-//    path.addRect(Rect.fromLTWH(0, 0, size.width, size.height - 30));
-    path.addRRect(RRect.fromRectAndRadius(
-        Rect.fromLTWH(0.0, size.height - 20.0, size.width, size.height),
-        Radius.circular(16)));
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final Widget _headerInfo;
-
-  _SliverAppBarDelegate(this._headerInfo);
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
-
-  @override
-  double get maxExtent => 200;
-
-  @override
-  double get minExtent => 50;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: _headerInfo,
+        ],
+      ),
     );
+  }
+
+  void _setOptionsStatus(AnimationStatus status) {
+    setState(() {
+      _optionsIsOpen = status == AnimationStatus.forward ||
+          status == AnimationStatus.completed;
+    });
+  }
+
+  void _openOptions() {
+    _optionsAnimationController.forward();
+  }
+
+  void _closeOptions() {
+    _optionsAnimationController.reverse();
+  }
+
+  @override
+  void dispose() {
+    _optionsAnimationController.dispose();
+    super.dispose();
   }
 }
