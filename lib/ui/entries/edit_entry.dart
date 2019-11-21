@@ -136,6 +136,7 @@ class _EditEntryState extends State<EditEntry> {
     final statusCode =
         await Provider.of<EntryModel>(context, listen: false).update(_formData);
     if (statusCode != 200) {
+      // TODO: LOOK INTO DUPLICATION OF ERROR MESSAGES IN message and message from API
       debugPrint('An error occured');
       String message = "😥 Something went wrong. Please try again later!";
 
