@@ -1,7 +1,7 @@
 import 'package:dear_diary/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 
-import 'entries/list_entries.dart';
+import 'home.dart';
 import 'intro/intro.dart';
 
 class Root extends StatefulWidget {
@@ -28,7 +28,7 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     if(_authStatus == AuthStatus.LOGGED_IN){
-      return ListEntries();
+      return Home();
     }
     return Intro();
   }
