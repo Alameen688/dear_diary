@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListEntries extends StatefulWidget {
-  static const routeName = 'list-entries';
 
   @override
   _ListEntriesState createState() => _ListEntriesState();

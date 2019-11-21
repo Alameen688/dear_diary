@@ -1,5 +1,6 @@
 import 'package:dear_diary/ui/entries/add_entry.dart';
 import 'package:dear_diary/ui/entries/edit_entry.dart';
+import 'package:dear_diary/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,6 @@ import 'notifiers/entry.dart';
 import 'notifiers/user.dart';
 import 'ui/auth/login.dart';
 import 'ui/auth/sign_up.dart';
-import 'ui/entries/list_entries.dart';
 import 'ui/entries/view_entry.dart';
 import 'ui/intro/intro.dart';
 import 'ui/root.dart';
@@ -58,7 +58,7 @@ class DearDiary extends StatelessWidget {
         Intro.routeName: (context) => Intro(),
         Login.routeName: (context) => Login(),
         SignUp.routeName: (context) => SignUp(),
-        ListEntries.routeName: (context) => ListEntries(),
+        Home.routeName: (context) => Home(),
         ViewEntry.routeName: (context) => ViewEntry(),
         AddEntry.routeName: (context) => AddEntry(),
         EditEntry.routeName: (context) => EditEntry(),

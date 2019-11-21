@@ -67,4 +67,19 @@ class EntryModel with ChangeNotifier {
     }
     return response.statusCode;
   }
+
+  delete(int entryId) async {
+    _isLoading = true;
+    notifyListeners();
+    Response response = await diaryService.deleteEntry(entryId);
+    _isLoading = false;
+    notifyListeners();
+    var resBody = jsonDecode(response.body);
+    print(resBody['message']);
+    debugPrint('${response.statusCode}');
+    if (response.statusCode != 200) {
+      _message = resBody['message'];
+    }
+    return response.statusCode;
+  }
 }

@@ -5,7 +5,7 @@ import 'package:dear_diary/ui/profile/profile.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  static const routeName = 'list-entries';
+  static const routeName = 'home';
 
   @override
   _HomeState createState() => _HomeState();
