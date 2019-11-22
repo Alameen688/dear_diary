@@ -146,7 +146,7 @@ class _AddEntryState extends State<AddEntry> {
       builder: (_) => DiaryAlert(
           message: "Gotcha 😎! Thanks for sharing your thoughts with me today!",
           onPressed: () =>
-              Navigator.of(context).popAndPushNamed('list-entries')),
+              Navigator.of(context).popAndPushNamed('home')),
     );
   }
 }

@@ -156,7 +156,7 @@ class _EditEntryState extends State<EditEntry> {
       builder: (_) => DiaryAlert(
           message: "Well recieved 😎! Thanks for the update",
           onPressed: () =>
-              Navigator.of(context).popAndPushNamed('list-entries')),
+              Navigator.of(context).popAndPushNamed('home')),
     );
   }
 }

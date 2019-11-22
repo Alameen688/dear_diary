@@ -233,7 +233,7 @@ class _LoginState extends State<Login> {
               ));
     }
     Navigator.of(context).pushNamedAndRemoveUntil(
-        'list-entries', (Route<dynamic> route) => false);
+        'home', (Route<dynamic> route) => false);
   }
 
   @override
