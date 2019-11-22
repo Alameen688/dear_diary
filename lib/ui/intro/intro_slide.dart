@@ -28,13 +28,14 @@ class _IntroSlideState extends State<IntroSlide> {
                 });
               },
               itemBuilder: (BuildContext context, int position) {
+                final currentSlide = slide_data[position];
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Container(
                       width: 270,
-                      height: 200,
-                      margin: EdgeInsets.only(top: 50.0),
+                      height: 380,
+                      margin: EdgeInsets.only(top: 100.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         boxShadow: [
@@ -45,33 +46,31 @@ class _IntroSlideState extends State<IntroSlide> {
                         ],
                         image: DecorationImage(
                           image: AssetImage(
-                            slide_data[position].imageUrl,
+                            currentSlide.imageUrl,
                           ),
                           fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 300,
-                      margin: EdgeInsets.symmetric(vertical: 28.0),
-                      alignment: Alignment.center,
-                      child: Text(
-                        slide_data[position].title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .title
-                            .copyWith(fontSize: 22.0),
+                      child: Align(
+                        alignment: Alignment(0.1, 1.0),
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          height: 100,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: Colors.blueGrey.withOpacity(0.8),
+                          ),
+                          child: Text(
+                            currentSlide.title,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
-                    Container(
-                      width: 300,
-                      alignment: Alignment.center,
-                      child: Text(
-                        slide_data[position].description,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                    )
                   ],
                 );
               }),
