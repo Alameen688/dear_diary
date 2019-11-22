@@ -17,4 +17,9 @@ class AuthHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth-token') ?? '';
   }
+
+  static removeUserToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.remove('auth-token');
+  }
 }

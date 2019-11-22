@@ -1,5 +1,6 @@
 import 'package:dear_diary/models/user.dart';
 import 'package:dear_diary/notifiers/user.dart';
+import 'package:dear_diary/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    getUserProfile();
+    _getUserProfile();
   }
 
   @override
@@ -170,7 +171,7 @@ class _ProfileState extends State<Profile> {
                         color: Color(0xFF3C4858),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
-                        onPressed: () {},
+                        onPressed: _handleLogout,
                         child: Text(
                           'LOG OUT',
                           style: TextStyle(
@@ -188,7 +189,13 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void getUserProfile() {
+  void _getUserProfile() {
     Provider.of<UserModel>(context, listen: false).getUserProfile();
+  }
+
+  void _handleLogout() async {
+    await AuthHelper.removeUserToken();
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('intro', (Route<dynamic> route) => false);
   }
 }
