@@ -14,12 +14,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _pages = [ListEntries(), Profile()];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _pages[_currentIndex],
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _pages,
+        ),
         bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
             showSelectedLabels: false,
             showUnselectedLabels: false,
             onTap: _onBottomNavTapped,
