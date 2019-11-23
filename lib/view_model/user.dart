@@ -19,50 +19,47 @@ class UserViewModel extends BaseViewModel {
 
   create(Map<String, String> formData) async {
     setStatus(ViewStatus.Loading);
-
-    Response response = await _userService.signUp(formData);
-    _message = '';
-    if (response.statusCode != 201) {
-      _message = response.data['message'];
+    Response response;
+    try {
+      _message = '';
+      response = await _userService.signUp(formData);
+    } on DioError catch (e) {
+      _message = e.response?.data['message'];
     }
     setStatus(ViewStatus.Ready);
 
-    return response.statusCode;
+    return response?.statusCode;
   }
 
   login(Map<String, String> formData) async {
     setStatus(ViewStatus.Loading);
-    _message = '';
-    Response response = await _userService.login(formData);
-    var responseData = response.data;
-    if (response.statusCode != 200) {
-      _message = responseData['message'];
-    } else {
+    Response response;
+    try {
+      _message = '';
+      response = await _userService.login(formData);
+      var responseData = response.data['data'];
       final String token = responseData['token'] ?? '';
       if (token.isNotEmpty) {
         AuthHelper.saveInfo(token);
       }
+    } on DioError catch (e) {
+      _message = e.response?.data['message'];
     }
     setStatus(ViewStatus.Ready);
 
-    return response.statusCode;
+    return response?.statusCode;
   }
 
   void getUserProfile() async {
     setStatus(ViewStatus.Loading);
-
+    _message = '';
     try {
       Response response = await _userService.profile();
-      var responseData = response.data;
-      if (response.statusCode != 200) {
-        _message = responseData['message'];
-      } else {
-        _userProfile = User.fromJson(responseData['data']);
-      }
-    } catch (e) {
-      _message = ERROR_MESSAGE;
-    } finally {
-      setStatus(ViewStatus.Ready);
+      var responseData = response.data['data'];
+      _userProfile = User.fromJson(responseData);
+    } on DioError catch (e) {
+      _message = e.response?.data['message'] ?? ERROR_MESSAGE;
     }
+    setStatus(ViewStatus.Ready);
   }
 }
