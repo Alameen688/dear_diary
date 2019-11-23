@@ -1,6 +1,7 @@
-import 'package:dear_diary/notifiers/user.dart';
 import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
+import 'package:dear_diary/view_model/base.dart';
+import 'package:dear_diary/view_model/user.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -167,7 +168,9 @@ class _LoginState extends State<Login> {
                               child: Container(
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.only(left: 40.0),
-                                child: Provider.of<UserModel>(context).isLoading
+                                child: Provider.of<UserViewModel>(context)
+                                            .viewStatus ==
+                                        ViewStatus.Loading
                                     ? CircularProgressIndicator(
                                         valueColor: AlwaysStoppedAnimation(
                                             Colors.white),
@@ -220,11 +223,11 @@ class _LoginState extends State<Login> {
   }
 
   void _handleLogin() async {
-    final statusCode =
-        await Provider.of<UserModel>(context, listen: false).login(_formData);
+    final statusCode = await Provider.of<UserViewModel>(context, listen: false)
+        .login(_formData);
     if (statusCode != 200) {
       final String message =
-          Provider.of<UserModel>(context, listen: false).message;
+          Provider.of<UserViewModel>(context, listen: false).message;
       return showDialog(
           context: context,
           builder: (_) => DiaryAlert(
@@ -232,8 +235,8 @@ class _LoginState extends State<Login> {
                 onPressed: () => Navigator.of(context).pop(),
               ));
     }
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        'home', (Route<dynamic> route) => false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
   }
 
   @override

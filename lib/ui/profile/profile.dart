@@ -1,6 +1,6 @@
 import 'package:dear_diary/models/user.dart';
-import 'package:dear_diary/notifiers/user.dart';
 import 'package:dear_diary/utils/auth_helper.dart';
+import 'package:dear_diary/view_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    User userProfile = Provider.of<UserModel>(context).userProfile;
+    User userProfile = Provider.of<UserViewModel>(context).userProfile;
     return SafeArea(
       child: SingleChildScrollView(
         child: userProfile != null
@@ -190,7 +190,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void _getUserProfile() {
-    Provider.of<UserModel>(context, listen: false).getUserProfile();
+    Provider.of<UserViewModel>(context, listen: false).getUserProfile();
   }
 
   void _handleLogout() async {

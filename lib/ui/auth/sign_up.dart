@@ -1,13 +1,14 @@
-import 'package:dear_diary/notifiers/user.dart';
 import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
+import 'package:dear_diary/view_model/base.dart';
+import 'package:dear_diary/view_model/user.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   static const routeName = 'signup';
-  
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -187,7 +188,9 @@ class _SignUpState extends State<SignUp> {
                               child: Container(
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.only(left: 40.0),
-                                child: Provider.of<UserModel>(context).isLoading
+                                child: Provider.of<UserViewModel>(context)
+                                            .viewStatus ==
+                                        ViewStatus.Loading
                                     ? CircularProgressIndicator(
                                         valueColor: AlwaysStoppedAnimation(
                                             Colors.white),
@@ -242,10 +245,11 @@ class _SignUpState extends State<SignUp> {
 
   void _handleSignUp() async {
     final int statusCode =
-        await Provider.of<UserModel>(context, listen: false).create(_formData);
+        await Provider.of<UserViewModel>(context, listen: false)
+            .create(_formData);
     if (statusCode != 201) {
       final String message =
-          Provider.of<UserModel>(context, listen: false).message;
+          Provider.of<UserViewModel>(context, listen: false).message;
       return showDialog(
           context: context,
           builder: (_) => DiaryAlert(
