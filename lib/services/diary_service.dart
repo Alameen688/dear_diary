@@ -3,7 +3,6 @@ import 'package:dear_diary/utils/auth_helper.dart';
 import 'package:http/http.dart' show Client, Response;
 
 class DiaryService {
-  // TODO: Use DI to provide token, since it will be used for virtually all calls here
   final Client apiClient = Client();
   static const _baseUrl = BASE_URL;
 
@@ -27,7 +26,6 @@ class DiaryService {
   }
 
   Future<Response> updateEntry(Map<String, dynamic> entry) async {
-    print('${entry['id']}');
     final String url = '$_baseUrl/entries/${entry['id']}';
     final String token = await AuthHelper.getUserToken();
     return apiClient.put(url, headers: {

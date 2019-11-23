@@ -269,7 +269,6 @@ class _ViewEntryState extends State<ViewEntry>
     final statusCode =
         await Provider.of<EntryModel>(context, listen: false).delete(entryId);
     if (statusCode != 204) {
-      debugPrint('An error occured');
       String message = Provider.of<EntryModel>(context, listen: false).message;
       showDialog(
         context: context,

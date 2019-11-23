@@ -63,13 +63,10 @@ class UserModel with ChangeNotifier {
       var resBody = jsonDecode(response.body);
       if (response.statusCode != 200) {
         _message = resBody['message'];
-        print(_message);
       } else {
-        print(resBody['data']);
         _userProfile = User.fromJson(resBody['data']);
       }
     } catch (e) {
-      print(e);
       _message = ERROR_MESSAGE;
     } finally {
       _isLoading = false;

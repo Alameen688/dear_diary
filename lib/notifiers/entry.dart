@@ -62,8 +62,6 @@ class EntryModel with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
     var resBody = jsonDecode(response.body);
-    print(resBody['message']);
-    debugPrint('${response.statusCode}');
     if (response.statusCode != 200) {
       _message = resBody['message'];
     }
@@ -76,14 +74,11 @@ class EntryModel with ChangeNotifier {
     Response response;
     try {
       response = await diaryService.deleteEntry(entryId);
-      debugPrint(response.statusCode.toString());
       if (response.statusCode != 204) {
         var resBody = jsonDecode(response.body);
-        print(resBody['message']);
         _message = resBody['message'];
       }
     } catch (e) {
-      print(e);
       _isFetching = false;
       _message = ERROR_MESSAGE;
     } finally {

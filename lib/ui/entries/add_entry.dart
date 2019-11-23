@@ -131,7 +131,6 @@ class _AddEntryState extends State<AddEntry> {
     final statusCode =
         await Provider.of<EntryModel>(context, listen: false).create(_formData);
     if (statusCode != 201) {
-      debugPrint('An error occured');
       showDialog(
         context: context,
         builder: (_) => DiaryAlert(

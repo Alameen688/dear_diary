@@ -11,7 +11,6 @@ class _IntroSlideState extends State<IntroSlide> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('${MediaQuery.of(context).orientation}');
     final double screenHeight = MediaQuery.of(context).size.height;
     final double containerHeight =
         screenHeight < 500 ? 460 : screenHeight * 0.7;
