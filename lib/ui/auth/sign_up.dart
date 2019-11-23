@@ -176,6 +176,8 @@ class _SignUpState extends State<SignUp> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         onPressed: () {
+                          if (Provider.of<UserViewModel>(context).viewStatus ==
+                              ViewStatus.Loading) return;
                           final form = _signUpFormKey.currentState;
                           if (form.validate()) {
                             form.save();

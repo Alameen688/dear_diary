@@ -156,6 +156,8 @@ class _LoginState extends State<Login> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         onPressed: () {
+                          if (Provider.of<UserViewModel>(context).viewStatus ==
+                              ViewStatus.Loading) return;
                           final form = _loginFormKey.currentState;
                           if (form.validate()) {
                             form.save();
