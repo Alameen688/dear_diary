@@ -1,6 +1,6 @@
 import 'package:dear_diary/models/entry.dart';
-import 'package:dear_diary/notifiers/entry.dart';
 import 'package:dear_diary/ui/common/diary_alert.dart';
+import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -267,9 +267,9 @@ class _ViewEntryState extends State<ViewEntry>
   void _deleteConfirmed(int entryId) async {
     Navigator.of(context).pop();
     final statusCode =
-        await Provider.of<EntryModel>(context, listen: false).delete(entryId);
+        await Provider.of<EntryViewModel>(context, listen: false).delete(entryId);
     if (statusCode != 204) {
-      String message = Provider.of<EntryModel>(context, listen: false).message;
+      String message = Provider.of<EntryViewModel>(context, listen: false).message;
       showDialog(
         context: context,
         builder: (_) => DiaryAlert(

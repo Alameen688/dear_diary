@@ -1,7 +1,8 @@
 import 'package:dear_diary/models/entry.dart';
-import 'package:dear_diary/notifiers/entry.dart';
 import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
+import 'package:dear_diary/view_model/base.dart';
+import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,7 @@ class _EditEntryState extends State<EditEntry> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF3C4858),
-        child: Provider.of<EntryModel>(context).isLoading
+        child: Provider.of<EntryViewModel>(context).viewStatus == ViewStatus.Loading
             ? CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               )
@@ -121,7 +122,7 @@ class _EditEntryState extends State<EditEntry> {
                 semanticLabel: 'Save',
               ),
         onPressed: () {
-          if (Provider.of<EntryModel>(context).isLoading) return;
+          if (Provider.of<EntryViewModel>(context).viewStatus == ViewStatus.Loading) return;
           final form = _editEntryFormKey.currentState;
           if (form.validate()) {
             form.save();
@@ -134,12 +135,12 @@ class _EditEntryState extends State<EditEntry> {
 
   _handleEditEntry() async {
     final statusCode =
-        await Provider.of<EntryModel>(context, listen: false).update(_formData);
+        await Provider.of<EntryViewModel>(context, listen: false).update(_formData);
     if (statusCode != 200) {
       String message = "😥 Something went wrong. Please try again later!";
 
       if (statusCode == 400) {
-        message = Provider.of<EntryModel>(context, listen: false).message;
+        message = Provider.of<EntryViewModel>(context, listen: false).message;
       }
       showDialog(
         context: context,

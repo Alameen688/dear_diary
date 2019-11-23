@@ -1,6 +1,7 @@
-import 'package:dear_diary/notifiers/entry.dart';
 import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
+import 'package:dear_diary/view_model/base.dart';
+import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -107,7 +108,8 @@ class _AddEntryState extends State<AddEntry> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF3C4858),
-        child: Provider.of<EntryModel>(context).isLoading
+        child: Provider.of<EntryViewModel>(context).viewStatus ==
+                ViewStatus.Loading
             ? CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               )
@@ -116,7 +118,8 @@ class _AddEntryState extends State<AddEntry> {
                 semanticLabel: 'Save',
               ),
         onPressed: () {
-          if (Provider.of<EntryModel>(context).isLoading) return;
+          if (Provider.of<EntryViewModel>(context).viewStatus ==
+              ViewStatus.Loading) return;
           final form = _addEntryFormKey.currentState;
           if (form.validate()) {
             form.save();
@@ -128,8 +131,8 @@ class _AddEntryState extends State<AddEntry> {
   }
 
   _handleAddEntry() async {
-    final statusCode =
-        await Provider.of<EntryModel>(context, listen: false).create(_formData);
+    final statusCode = await Provider.of<EntryViewModel>(context, listen: false)
+        .create(_formData);
     if (statusCode != 201) {
       showDialog(
         context: context,
@@ -144,8 +147,7 @@ class _AddEntryState extends State<AddEntry> {
       barrierDismissible: false,
       builder: (_) => DiaryAlert(
           message: "Gotcha 😎! Thanks for sharing your thoughts with me today!",
-          onPressed: () =>
-              Navigator.of(context).popAndPushNamed('home')),
+          onPressed: () => Navigator.of(context).popAndPushNamed('home')),
     );
   }
 }

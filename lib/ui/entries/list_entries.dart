@@ -1,6 +1,7 @@
 import 'package:dear_diary/data/entry_test_data.dart';
 import 'package:dear_diary/models/entry.dart';
-import 'package:dear_diary/notifiers/entry.dart';
+import 'package:dear_diary/view_model/base.dart';
+import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +21,9 @@ class _ListEntriesState extends State<ListEntries> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer<EntryModel>(builder: (context, model, child) {
+      child: Consumer<EntryViewModel>(builder: (context, model, child) {
         List<Entry> entries = model.entries;
-        if (model.isFetching) {
+        if (model.viewStatus == ViewStatus.Loading) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -166,6 +167,6 @@ class _ListEntriesState extends State<ListEntries> {
   }
 
   void getEntries() async {
-    Provider.of<EntryModel>(context, listen: false).getEntries();
+    Provider.of<EntryViewModel>(context, listen: false).getEntries();
   }
 }
