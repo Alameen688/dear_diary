@@ -1,9 +1,12 @@
-import 'package:http/http.dart';
+import 'package:dear_diary/utils/auth_helper.dart';
+import 'package:dio/dio.dart';
 
-class ApiClient {
-  static const _baseUrl = 'http://mydiaryoxygen.herokuapp.com/api/v1';
+const BASE_URL = 'http://mydiaryoxygen.herokuapp.com/api/v1';
 
-  signUp(){
-
-  }
+Future<Dio> apiClientSetup() async {
+  Dio apiClient = Dio();
+  final authToken = await AuthHelper.getUserToken();
+  apiClient.options.baseUrl = BASE_URL;
+  apiClient.options.headers['Authorization'] = 'Bearer $authToken';
+  return apiClient;
 }
