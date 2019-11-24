@@ -2,7 +2,7 @@ import 'package:dear_diary/models/dialog_action.dart';
 import 'package:dear_diary/models/dialog_info.dart';
 import 'package:dear_diary/services/dialog_service.dart';
 import 'package:dear_diary/services/locator.dart';
-import 'package:dear_diary/ui/common/diary_alert.dart';
+import 'package:dear_diary/ui/common/diary_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 class AppManager extends StatefulWidget {
@@ -30,8 +30,8 @@ class _AppManagerState extends State<AppManager> {
   _onShow(DialogInfo dialogInfo) {
     showDialog(
       context: context,
-      barrierDismissible: dialogInfo.barrierDismissible,
-      builder: (_) => DiaryAlert(
+      barrierDismissible: dialogInfo.barrierDismissible ?? true,
+      builder: (_) => DiaryAlertDialog(
         message: dialogInfo.message,
         onPressed: () {
           Navigator.of(context).pop();

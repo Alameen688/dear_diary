@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DiaryAlert extends StatelessWidget {
+class RawDiaryDialog extends StatelessWidget {
   final String message;
-  final Function onPressed;
+  final List<Widget> actions;
 
-  DiaryAlert({@required this.message, @required this.onPressed});
+  const RawDiaryDialog(
+      {Key key, @required this.message, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +32,11 @@ class DiaryAlert extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Container(
-                width: 250,
-                height: 45,
-                child: RaisedButton(
-                    color: Color(0xFF3C4858),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    onPressed: onPressed,
-                    child: Text(
-                      "Okay",
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    )),
-              )
+              if (actions != null)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: actions,
+                )
             ],
           ),
         ),
