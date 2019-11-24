@@ -10,10 +10,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  UserViewModel userViewModel;
   @override
-  void initState() {
-    super.initState();
-    _getUserProfile();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final userViewModel = Provider.of<UserViewModel>(context);
+    if (this.userViewModel != userViewModel) {
+      this.userViewModel = userViewModel;
+      Future.microtask(userViewModel.getUserProfile);
+    }
   }
 
   @override
@@ -187,10 +192,6 @@ class _ProfileState extends State<Profile> {
             : null,
       ),
     );
-  }
-
-  void _getUserProfile() {
-    Provider.of<UserViewModel>(context, listen: false).getUserProfile();
   }
 
   void _handleLogout() async {
