@@ -1,4 +1,5 @@
 import 'package:dear_diary/models/user.dart';
+import 'package:dear_diary/services/dialog_service.dart';
 import 'package:dear_diary/services/locator.dart';
 import 'package:dear_diary/services/user_service.dart';
 import 'package:dear_diary/utils/auth_helper.dart';
@@ -8,6 +9,8 @@ import 'package:dio/dio.dart';
 const ERROR_MESSAGE = "😥 Something went wrong. Please try again later!";
 
 class UserViewModel extends BaseViewModel {
+  DialogService _dialogService = locator<DialogService>();
+
   String _message;
   User _userProfile;
 
@@ -32,11 +35,10 @@ class UserViewModel extends BaseViewModel {
     return response?.statusCode;
   }
 
-  login(Map<String, String> formData) async {
+  Future<bool> login(Map<String, String> formData) async {
     setStatus(ViewStatus.Loading);
     Response response;
     try {
-      _message = '';
       response = await _userService.login(formData);
       var responseData = response.data['data'];
       final String token = responseData['token'] ?? '';
@@ -45,11 +47,12 @@ class UserViewModel extends BaseViewModel {
       }
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
-      _message = data['message'] ?? ERROR_MESSAGE;
+      final message = data['message'] ?? ERROR_MESSAGE;
+      _dialogService.showDialog(message);
     }
     setStatus(ViewStatus.Ready);
 
-    return response?.statusCode;
+    return response?.statusCode == 200;
   }
 
   void getUserProfile() async {

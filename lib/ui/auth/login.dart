@@ -1,4 +1,3 @@
-import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/user.dart';
@@ -225,20 +224,12 @@ class _LoginState extends State<Login> {
   }
 
   void _handleLogin() async {
-    final statusCode = await Provider.of<UserViewModel>(context, listen: false)
+    final response = await Provider.of<UserViewModel>(context, listen: false)
         .login(_formData);
-    if (statusCode != 200) {
-      final String message =
-          Provider.of<UserViewModel>(context, listen: false).message;
-      return showDialog(
-          context: context,
-          builder: (_) => DiaryAlert(
-                message: message,
-                onPressed: () => Navigator.of(context).pop(),
-              ));
+    if (response) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
     }
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
   }
 
   @override
