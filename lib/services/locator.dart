@@ -1,4 +1,5 @@
 import 'package:dear_diary/services/api_client.dart';
+import 'package:dear_diary/services/dialog_service.dart';
 import 'package:dear_diary/services/entry_service.dart';
 import 'package:dear_diary/services/user_service.dart';
 import 'package:get_it/get_it.dart';
@@ -10,4 +11,5 @@ Future<void> setupLocator() async {
 
   locator.registerLazySingleton(() => EntryService(apiClient));
   locator.registerLazySingleton(() => UserService(apiClient));
+  locator.registerLazySingleton(() => DialogService());
 }
