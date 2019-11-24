@@ -246,25 +246,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _handleSignUp() async {
-    final int statusCode =
-        await Provider.of<UserViewModel>(context, listen: false)
-            .create(_formData);
-    if (statusCode != 201) {
-      final String message =
-          Provider.of<UserViewModel>(context, listen: false).message;
-      return showDialog(
-          context: context,
-          builder: (_) => DiaryAlert(
-                message: message,
-                onPressed: () => Navigator.of(context).pop(),
-              ));
+    final response = await Provider.of<UserViewModel>(context, listen: false)
+        .create(_formData);
+    if (response) {
+      Navigator.of(context).popAndPushNamed('login');
     }
-    showDialog(
-        context: context,
-        builder: (_) => DiaryAlert(
-              message: "Yay! Your account has been created. Continue!",
-              onPressed: () => Navigator.of(context).popAndPushNamed('login'),
-            ));
   }
 
   @override

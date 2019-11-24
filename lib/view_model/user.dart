@@ -20,19 +20,22 @@ class UserViewModel extends BaseViewModel {
 
   User get userProfile => _userProfile;
 
-  create(Map<String, String> formData) async {
+  Future<bool> create(Map<String, String> formData) async {
     setStatus(ViewStatus.Loading);
     Response response;
     try {
-      _message = '';
       response = await _userService.signUp(formData);
+      setStatus(ViewStatus.Ready);
+      await _dialogService
+          .showDialog("Yay! Your account has been created. Continue!");
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
-      _message = data['message'] ?? ERROR_MESSAGE;
+      final message = data['message'] ?? ERROR_MESSAGE;
+      setStatus(ViewStatus.Ready);
+      _dialogService.showDialog(message);
     }
-    setStatus(ViewStatus.Ready);
 
-    return response?.statusCode;
+    return response?.statusCode == 201;
   }
 
   Future<bool> login(Map<String, String> formData) async {
