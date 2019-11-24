@@ -113,7 +113,8 @@ class _EditEntryState extends State<EditEntry> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF3C4858),
-        child: Provider.of<EntryViewModel>(context).viewStatus == ViewStatus.Loading
+        child: Provider.of<EntryViewModel>(context).viewStatus ==
+                ViewStatus.Loading
             ? CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               )
@@ -122,7 +123,8 @@ class _EditEntryState extends State<EditEntry> {
                 semanticLabel: 'Save',
               ),
         onPressed: () {
-          if (Provider.of<EntryViewModel>(context).viewStatus == ViewStatus.Loading) return;
+          if (Provider.of<EntryViewModel>(context).viewStatus ==
+              ViewStatus.Loading) return;
           final form = _editEntryFormKey.currentState;
           if (form.validate()) {
             form.save();
@@ -134,14 +136,11 @@ class _EditEntryState extends State<EditEntry> {
   }
 
   _handleEditEntry() async {
-    final statusCode =
-        await Provider.of<EntryViewModel>(context, listen: false).update(_formData);
+    final statusCode = await Provider.of<EntryViewModel>(context, listen: false)
+        .update(_formData);
     if (statusCode != 200) {
-      String message = "😥 Something went wrong. Please try again later!";
-
-      if (statusCode == 400) {
-        message = Provider.of<EntryViewModel>(context, listen: false).message;
-      }
+      final String message =
+          Provider.of<EntryViewModel>(context, listen: false).message;
       showDialog(
         context: context,
         builder: (_) => DiaryAlert(
@@ -154,8 +153,7 @@ class _EditEntryState extends State<EditEntry> {
       barrierDismissible: false,
       builder: (_) => DiaryAlert(
           message: "Well recieved 😎! Thanks for the update",
-          onPressed: () =>
-              Navigator.of(context).popAndPushNamed('home')),
+          onPressed: () => Navigator.of(context).popAndPushNamed('home')),
     );
   }
 }

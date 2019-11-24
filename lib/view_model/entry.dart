@@ -18,43 +18,47 @@ class EntryViewModel extends BaseViewModel {
 
   getEntries() async {
     setStatus(ViewStatus.Loading);
+    Response response;
     try {
-      Response response = await _diaryService.getEntries();
-      var responseData = response.data;
-      if (response.statusCode != 200) {
-        _message = responseData['message'];
-      } else {
-        final List<dynamic> data = responseData['data'] ?? [];
-        _entries = List<Entry>.from(data.map((entry) => Entry.fromJson(entry)));
-      }
-    } catch (e) {
-      _message = ERROR_MESSAGE;
-    } finally {
-      setStatus(ViewStatus.Ready);
+      _message = '';
+      response = await _diaryService.getEntries();
+      final List<dynamic> data = response.data['data'] ?? [];
+      _entries = List<Entry>.from(data.map((entry) => Entry.fromJson(entry)));
+    } on DioError catch (e) {
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
+    setStatus(ViewStatus.Ready);
   }
 
   create(Map<String, String> formData) async {
     setStatus(ViewStatus.Loading);
-    Response response = await _diaryService.addEntry(formData);
-    var responseData = response.data;
-    if (response.statusCode != 201) {
-      _message = responseData['message'];
+    Response response;
+    try {
+      _message = '';
+      response = await _diaryService.addEntry(formData);
+    } on DioError catch (e) {
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
     setStatus(ViewStatus.Ready);
 
-    return response.statusCode;
+    return response?.statusCode;
   }
 
   update(Map<String, dynamic> formData) async {
     setStatus(ViewStatus.Loading);
-    Response response = await _diaryService.updateEntry(formData);
-    if (response.statusCode != 200) {
-      _message = response.data['message'];
+    Response response;
+    try {
+      _message = '';
+      response = await _diaryService.updateEntry(formData);
+    } on DioError catch (e) {
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
     setStatus(ViewStatus.Ready);
 
-    return response.statusCode;
+    return response?.statusCode;
   }
 
   delete(int entryId) async {
@@ -62,16 +66,15 @@ class EntryViewModel extends BaseViewModel {
 
     Response response;
     try {
+      _message = '';
       response = await _diaryService.deleteEntry(entryId);
-      if (response.statusCode != 204) {
-        _message = response.data['message'];
-      }
     } catch (e) {
-      _message = ERROR_MESSAGE;
-    } finally {
-      setStatus(ViewStatus.Loading);
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
 
-    return response.statusCode;
+    setStatus(ViewStatus.Loading);
+
+    return response?.statusCode;
   }
 }
