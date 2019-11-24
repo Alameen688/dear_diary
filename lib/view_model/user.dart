@@ -58,7 +58,7 @@ class UserViewModel extends BaseViewModel {
     return response?.statusCode == 200;
   }
 
-  void getUserProfile() async {
+  Future<void> getUserProfile() async {
     setStatus(ViewStatus.Loading);
     _message = '';
     try {
@@ -66,7 +66,6 @@ class UserViewModel extends BaseViewModel {
       var responseData = response.data['data'];
       _userProfile = User.fromJson(responseData);
     } on DioError catch (e) {
-      e.response = null;
       final data = e.response?.data ?? {};
       _message = data['message'] ?? ERROR_MESSAGE;
     }
