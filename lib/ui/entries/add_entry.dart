@@ -1,4 +1,3 @@
-import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/entry.dart';
@@ -131,23 +130,10 @@ class _AddEntryState extends State<AddEntry> {
   }
 
   _handleAddEntry() async {
-    final statusCode = await Provider.of<EntryViewModel>(context, listen: false)
+    final response = await Provider.of<EntryViewModel>(context, listen: false)
         .create(_formData);
-    if (statusCode != 201) {
-      showDialog(
-        context: context,
-        builder: (_) => DiaryAlert(
-            message: "😥 Something went wrong. Please try again later!",
-            onPressed: () => Navigator.of(context).pop()),
-      );
-      return;
+    if (response) {
+      Navigator.of(context).pushNamed('home');
     }
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => DiaryAlert(
-          message: "Gotcha 😎! Thanks for sharing your thoughts with me today!",
-          onPressed: () => Navigator.of(context).popAndPushNamed('home')),
-    );
   }
 }
