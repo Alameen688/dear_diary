@@ -1,5 +1,5 @@
 import 'package:dear_diary/models/entry.dart';
-import 'package:dear_diary/services/diary_service.dart';
+import 'package:dear_diary/services/entry_service.dart';
 import 'package:dear_diary/services/locator.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dio/dio.dart';
@@ -14,14 +14,14 @@ class EntryViewModel extends BaseViewModel {
 
   List<Entry> get entries => _entries;
 
-  DiaryService _diaryService = locator<DiaryService>();
+  EntryService _entryService = locator<EntryService>();
 
   getEntries() async {
     setStatus(ViewStatus.Loading);
     Response response;
     try {
       _message = '';
-      response = await _diaryService.getEntries();
+      response = await _entryService.getEntries();
       final List<dynamic> data = response.data['data'] ?? [];
       _entries = List<Entry>.from(data.map((entry) => Entry.fromJson(entry)));
     } on DioError catch (e) {
@@ -36,7 +36,7 @@ class EntryViewModel extends BaseViewModel {
     Response response;
     try {
       _message = '';
-      response = await _diaryService.addEntry(formData);
+      response = await _entryService.addEntry(formData);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       _message = data['message'] ?? ERROR_MESSAGE;
@@ -51,7 +51,7 @@ class EntryViewModel extends BaseViewModel {
     Response response;
     try {
       _message = '';
-      response = await _diaryService.updateEntry(formData);
+      response = await _entryService.updateEntry(formData);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       _message = data['message'] ?? ERROR_MESSAGE;
@@ -67,7 +67,7 @@ class EntryViewModel extends BaseViewModel {
     Response response;
     try {
       _message = '';
-      response = await _diaryService.deleteEntry(entryId);
+      response = await _entryService.deleteEntry(entryId);
     } catch (e) {
       final data = e.response?.data ?? {};
       _message = data['message'] ?? ERROR_MESSAGE;

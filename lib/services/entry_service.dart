@@ -1,11 +1,11 @@
 import 'package:dear_diary/utils/api_helper.dart';
 import 'package:dio/dio.dart';
 
-class DiaryService {
+class EntryService {
   final Dio apiClient;
   static const baseUrl = BASE_URL;
 
-  DiaryService(this.apiClient);
+  EntryService(this.apiClient);
 
   Future<Response> getEntries() async {
     final String url = '$baseUrl/entries';
