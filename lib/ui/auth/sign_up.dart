@@ -1,4 +1,3 @@
-import 'package:dear_diary/ui/common/diary_alert.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/user.dart';
