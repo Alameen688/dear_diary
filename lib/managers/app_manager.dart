@@ -30,6 +30,7 @@ class _AppManagerState extends State<AppManager> {
   _onShow(DialogInfo dialogInfo) {
     showDialog(
       context: context,
+      barrierDismissible: dialogInfo.barrierDismissible,
       builder: (_) => DiaryAlert(
         message: dialogInfo.message,
         onPressed: () {

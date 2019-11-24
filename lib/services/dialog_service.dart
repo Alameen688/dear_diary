@@ -11,9 +11,10 @@ class DialogService {
     _onShowListener = onShowListener;
   }
 
-  showDialog(String message) {
+  showDialog(String message, {bool barrierDismissible}) {
     _dialogCompleter = Completer<DialogAction>();
-    _onShowListener(DialogInfo(message: message));
+    _onShowListener(
+        DialogInfo(message: message, barrierDismissible: barrierDismissible));
     return _dialogCompleter.future;
   }
 
