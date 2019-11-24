@@ -6,16 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListEntries extends StatefulWidget {
-
   @override
   _ListEntriesState createState() => _ListEntriesState();
 }
 
 class _ListEntriesState extends State<ListEntries> {
+  EntryViewModel entryViewModel;
+
   @override
-  void initState() {
-    super.initState();
-    getEntries();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final entryViewModel = Provider.of<EntryViewModel>(context);
+    if (this.entryViewModel != entryViewModel) {
+      this.entryViewModel = entryViewModel;
+      Future.microtask(entryViewModel.getEntries);
+    }
   }
 
   @override
@@ -66,8 +71,7 @@ class _ListEntriesState extends State<ListEntries> {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                       colorFilter: ColorFilter.mode(
-                                          Color(0xFF3C4858),
-                                          BlendMode.lighten),
+                                          Color(0xFF3C4858), BlendMode.lighten),
                                       image: AssetImage(
                                         entriesData[index < 5 ? index : 1]
                                             .imageUrl,
@@ -75,8 +79,8 @@ class _ListEntriesState extends State<ListEntries> {
                                       fit: BoxFit.cover),
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Color(0xFF3C4858)
-                                            .withOpacity(.4),
+                                        color:
+                                            Color(0xFF3C4858).withOpacity(.4),
                                         offset: Offset(5.0, 5.0),
                                         blurRadius: 10.0),
                                   ],
@@ -93,8 +97,7 @@ class _ListEntriesState extends State<ListEntries> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     boxShadow: [
                                       BoxShadow(
                                           color: Colors.black12,
@@ -128,10 +131,8 @@ class _ListEntriesState extends State<ListEntries> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(
-                                                          8.0),
-                                                  child:
-                                                      Text(entry.createdAt),
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(entry.createdAt),
                                                 ),
                                               ],
                                             ),
@@ -164,9 +165,5 @@ class _ListEntriesState extends State<ListEntries> {
             });
       }),
     );
-  }
-
-  void getEntries() async {
-    Provider.of<EntryViewModel>(context, listen: false).getEntries();
   }
 }
