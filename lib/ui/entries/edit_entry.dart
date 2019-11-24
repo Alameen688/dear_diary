@@ -136,24 +136,10 @@ class _EditEntryState extends State<EditEntry> {
   }
 
   _handleEditEntry() async {
-    final statusCode = await Provider.of<EntryViewModel>(context, listen: false)
+    final response = await Provider.of<EntryViewModel>(context, listen: false)
         .update(_formData);
-    if (statusCode != 200) {
-      final String message =
-          Provider.of<EntryViewModel>(context, listen: false).message;
-      showDialog(
-        context: context,
-        builder: (_) => DiaryAlert(
-            message: message, onPressed: () => Navigator.of(context).pop()),
-      );
-      return;
+    if (response) {
+      Navigator.of(context).popAndPushNamed('home');
     }
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => DiaryAlert(
-          message: "Well recieved 😎! Thanks for the update",
-          onPressed: () => Navigator.of(context).popAndPushNamed('home')),
-    );
   }
 }
