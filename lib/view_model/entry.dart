@@ -39,14 +39,14 @@ class EntryViewModel extends BaseViewModel {
     try {
       response = await _entryService.addEntry(formData);
       setStatus(ViewStatus.Ready);
-      await _dialogService.showDialog(
+      await _dialogService.showAlertDialog(
           'Gotcha 😎! Thanks for sharing your thoughts with me today!',
           barrierDismissible: false);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       final message = data['message'] ?? ERROR_MESSAGE;
       setStatus(ViewStatus.Ready);
-      _dialogService.showDialog(message);
+      _dialogService.showAlertDialog(message);
     }
 
     return response?.statusCode == 201;
@@ -58,13 +58,13 @@ class EntryViewModel extends BaseViewModel {
     try {
       response = await _entryService.updateEntry(formData);
       setStatus(ViewStatus.Ready);
-      await _dialogService.showDialog('Well recieved 😎! Thanks for the update',
+      await _dialogService.showAlertDialog('Well recieved 😎! Thanks for the update',
           barrierDismissible: false);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       final message = data['message'] ?? ERROR_MESSAGE;
       setStatus(ViewStatus.Ready);
-      _dialogService.showDialog(message);
+      _dialogService.showAlertDialog(message);
     }
 
     return response?.statusCode == 200;

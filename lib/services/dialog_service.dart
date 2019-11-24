@@ -11,7 +11,7 @@ class DialogService {
     _onShowListener = onShowListener;
   }
 
-  showDialog(String message, {bool barrierDismissible}) {
+  showAlertDialog(String message, {bool barrierDismissible}) {
     _dialogCompleter = Completer<DialogAction>();
     _onShowListener(
         DialogInfo(message: message, barrierDismissible: barrierDismissible));

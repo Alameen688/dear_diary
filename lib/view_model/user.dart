@@ -27,12 +27,12 @@ class UserViewModel extends BaseViewModel {
       response = await _userService.signUp(formData);
       setStatus(ViewStatus.Ready);
       await _dialogService
-          .showDialog("Yay! Your account has been created. Continue!");
+          .showAlertDialog("Yay! Your account has been created. Continue!");
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       final message = data['message'] ?? ERROR_MESSAGE;
       setStatus(ViewStatus.Ready);
-      _dialogService.showDialog(message);
+      _dialogService.showAlertDialog(message);
     }
 
     return response?.statusCode == 201;
@@ -51,7 +51,7 @@ class UserViewModel extends BaseViewModel {
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
       final message = data['message'] ?? ERROR_MESSAGE;
-      _dialogService.showDialog(message);
+      _dialogService.showAlertDialog(message);
     }
     setStatus(ViewStatus.Ready);
 
