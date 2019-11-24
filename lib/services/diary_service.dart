@@ -1,46 +1,30 @@
 import 'package:dear_diary/utils/api_helper.dart';
-import 'package:dear_diary/utils/auth_helper.dart';
-import 'package:http/http.dart' show Client, Response;
+import 'package:dio/dio.dart';
 
 class DiaryService {
-  final Client apiClient = Client();
-  static const _baseUrl = BASE_URL;
+  final Dio apiClient;
+  static const baseUrl = BASE_URL;
+
+  DiaryService(this.apiClient);
 
   Future<Response> getEntries() async {
-    final String url = '$_baseUrl/entries';
-    final String token = await AuthHelper.getUserToken();
-    return apiClient.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    final String url = '$baseUrl/entries';
+    return apiClient.get(url);
   }
 
   Future<Response> addEntry(Map<String, String> entry) async {
-    final String url = '$_baseUrl/entries';
-    final String token = await AuthHelper.getUserToken();
-    return apiClient.post(url, headers: {
-      'Authorization': 'Bearer $token',
-    }, body: {
-      'title': entry['title'],
-      'content': entry['content']
-    });
+    final String url = '$baseUrl/entries';
+    return apiClient.post(url,
+        data: {'title': entry['title'], 'content': entry['content']});
   }
 
   Future<Response> updateEntry(Map<String, dynamic> entry) async {
-    final String url = '$_baseUrl/entries/${entry['id']}';
-    final String token = await AuthHelper.getUserToken();
-    return apiClient.put(url, headers: {
-      'Authorization': 'Bearer $token',
-    }, body: {
-      'title': entry['title'],
-      'content': entry['content']
-    });
+    final String url = '$baseUrl/entries/${entry['id']}';
+    return apiClient
+        .put(url, data: {'title': entry['title'], 'content': entry['content']});
   }
 
-  deleteEntry(int entryId) async {
-    final String url = '$_baseUrl/entries/$entryId';
-    final String token = await AuthHelper.getUserToken();
-    return apiClient.delete(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+  Future<Response> deleteEntry(int entryId) async {
+    return apiClient.delete('$baseUrl/entries/$entryId');
   }
 }
