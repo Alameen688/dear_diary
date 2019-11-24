@@ -1,14 +1,15 @@
 import 'package:dear_diary/utils/api_helper.dart';
-import 'package:dear_diary/utils/auth_helper.dart';
-import 'package:http/http.dart' show Client, Response;
+import 'package:dio/dio.dart';
 
 class UserService {
-  final Client apiClient = Client();
-  static const _baseUrl = BASE_URL;
+  final Dio apiClient;
+  static const baseUrl = BASE_URL;
+
+  UserService(this.apiClient);
 
   Future<Response> signUp(Map<String, String> userInfo) async {
-    final String url = '$_baseUrl/auth/signup';
-    return apiClient.post(url, body: {
+    final String url = '$baseUrl/auth/signup';
+    return apiClient.post(url, data: {
       'fullname': userInfo['fullname'],
       'email': userInfo['email'],
       'password': userInfo['password']
@@ -16,16 +17,12 @@ class UserService {
   }
 
   Future<Response> login(Map<String, String> userInfo) async {
-    final String url = '$_baseUrl/auth/login';
+    final String url = '$baseUrl/auth/login';
     return apiClient.post(url,
-        body: {'email': userInfo['email'], 'password': userInfo['password']});
+        data: {'email': userInfo['email'], 'password': userInfo['password']});
   }
 
   Future<Response> profile() async {
-    final String url = '$_baseUrl/users/profile';
-    final String token = await AuthHelper.getUserToken();
-    return apiClient.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    return apiClient.get('$baseUrl/users/profile');
   }
 }
