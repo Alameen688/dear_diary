@@ -24,7 +24,8 @@ class UserViewModel extends BaseViewModel {
       _message = '';
       response = await _userService.signUp(formData);
     } on DioError catch (e) {
-      _message = e.response?.data['message'];
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
     setStatus(ViewStatus.Ready);
 
@@ -43,7 +44,8 @@ class UserViewModel extends BaseViewModel {
         AuthHelper.saveInfo(token);
       }
     } on DioError catch (e) {
-      _message = e.response?.data['message'];
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
     setStatus(ViewStatus.Ready);
 
@@ -58,7 +60,9 @@ class UserViewModel extends BaseViewModel {
       var responseData = response.data['data'];
       _userProfile = User.fromJson(responseData);
     } on DioError catch (e) {
-      _message = e.response?.data['message'] ?? ERROR_MESSAGE;
+      e.response = null;
+      final data = e.response?.data ?? {};
+      _message = data['message'] ?? ERROR_MESSAGE;
     }
     setStatus(ViewStatus.Ready);
   }
