@@ -1,3 +1,4 @@
+import 'package:dear_diary/managers/app_manager.dart';
 import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,6 +64,13 @@ class DearDiary extends StatelessWidget {
             title: TextStyle(color: Color(0xFF414A53)),
             subhead: TextStyle(color: Color(0xFF686B6F)),
           )),
+      builder: (context, widget) => Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          builder: (context) => AppManager(
+            child: widget,
+          ),
+        ),
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => Root(),
