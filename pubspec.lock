@@ -64,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.6"
   email_validator:
     dependency: "direct main"
     description:
@@ -81,13 +88,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  http:
+  get_it:
     dependency: "direct main"
     description:
-      name: http
+      name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+2"
+    version: "3.0.3"
   http_parser:
     dependency: transitive
     description:
@@ -234,5 +241,5 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">2.4.0 <3.0.0"
   flutter: ">=1.5.0 <2.0.0"
