@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class RawDiaryDialog extends StatelessWidget {
   final String message;
   final List<Widget> actions;
+  final double height;
 
   const RawDiaryDialog(
-      {Key key, @required this.message, this.actions})
+      {Key key, @required this.message, this.actions, this.height})
       : super(key: key);
 
   @override
@@ -14,7 +15,7 @@ class RawDiaryDialog extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          height: 180,
+          height: height ?? 180.0,
           decoration: ShapeDecoration(
               color: Theme.of(context).cardColor,
               shape: RoundedRectangleBorder(

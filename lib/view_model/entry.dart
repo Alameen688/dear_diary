@@ -58,7 +58,8 @@ class EntryViewModel extends BaseViewModel {
     try {
       response = await _entryService.updateEntry(formData);
       setStatus(ViewStatus.Ready);
-      await _dialogService.showAlertDialog('Well recieved 😎! Thanks for the update',
+      await _dialogService.showAlertDialog(
+          'Well recieved 😎! Thanks for the update',
           barrierDismissible: false);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
@@ -75,15 +76,18 @@ class EntryViewModel extends BaseViewModel {
 
     Response response;
     try {
-      _message = '';
       response = await _entryService.deleteEntry(entryId);
-    } catch (e) {
+      await Future.delayed(Duration(seconds: 10));
+      await _dialogService
+          .showAlertDialog('Okay! here you go. Entry deleted successfully!');
+      setStatus(ViewStatus.Ready);
+    } on DioError catch (e) {
       final data = e.response?.data ?? {};
-      _message = data['message'] ?? ERROR_MESSAGE;
+      final message = data['message'] ?? ERROR_MESSAGE;
+      setStatus(ViewStatus.Ready);
+      _dialogService.showAlertDialog(message);
     }
 
-    setStatus(ViewStatus.Loading);
-
-    return response?.statusCode;
+    return response?.statusCode == 204;
   }
 }

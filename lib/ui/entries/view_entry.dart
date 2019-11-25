@@ -1,5 +1,5 @@
 import 'package:dear_diary/models/entry.dart';
-import 'package:dear_diary/ui/common/diary_alert.dart';
+import 'package:dear_diary/ui/common/diary_confirm_dialog.dart';
 import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -258,35 +258,20 @@ class _ViewEntryState extends State<ViewEntry>
   void _onDeleteClicked(int entryId) {
     showDialog(
       context: context,
-      builder: (_) => DiaryAlert(
-          message: "Are you sure you want to delete this?",
-          onPressed: () => _deleteConfirmed(entryId)),
+      builder: (_) => DiaryConfirmDialog(
+        message: "Are you sure you want to delete this?",
+        onConfirmed: () => _deleteConfirmed(entryId),
+      ),
     );
   }
 
   void _deleteConfirmed(int entryId) async {
-    Navigator.of(context).pop();
-    final statusCode =
-        await Provider.of<EntryViewModel>(context, listen: false).delete(entryId);
-    if (statusCode != 204) {
-      String message = Provider.of<EntryViewModel>(context, listen: false).message;
-      showDialog(
-        context: context,
-        builder: (_) => DiaryAlert(
-            message: message,
-            onPressed: () => Navigator.of(context).pop()),
-      );
-      return;
+    // Navigator.of(context).pop();
+    final response = await Provider.of<EntryViewModel>(context, listen: false)
+        .delete(entryId);
+    if (response) {
+      Navigator.of(context).popAndPushNamed('home');
     }
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => DiaryAlert(
-          message:
-              "Okay! here you go. Entry deleted successfully!",
-          onPressed: () =>
-              Navigator.of(context).popAndPushNamed('home')),
-    );
   }
 
   @override
