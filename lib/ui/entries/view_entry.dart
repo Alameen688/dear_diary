@@ -77,8 +77,8 @@ class _ViewEntryState extends State<ViewEntry>
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
-                            letterSpacing: 0.3,
-                            fontWeight: FontWeight.w900),
+                            letterSpacing: 0.8,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
