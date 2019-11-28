@@ -4,8 +4,8 @@ A diary application to pen down your thoughts
 
 ## Technology Stack
 
+- Dart
 - Flutter
-- Provider (w/ ChangeNotifier)
 
 ## Possible learnings
 What I learnt (and you can learn) by building this project include but not limited to the following:
@@ -33,7 +33,7 @@ There is still room for improvement
 - Refractor possible services file
 
 ## Support
-- Show some :heart: and :star: the repo to encourage more useful osc projects
+- Show some :heart: and :star: the repo to encourage more useful OS projects
 
 ## Contributing
 The sole purpose of this project is to facilate learning, PRs and all forms of contribution are very much welcome! 
@@ -43,7 +43,7 @@ Be nice and constructive :relaxed:.
 Don't be an asshole :triangular_flag_on_post:!
 
 ## License
-Under [MIT license](/LICENSE.md) but don't forget to reference :).
+Under [MIT license](/LICENSE) but don't forget to reference :).
 
 ## Getting Started
 
