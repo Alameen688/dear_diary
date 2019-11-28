@@ -85,6 +85,8 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900,
+                              color: Colors.grey.shade700,
+                              letterSpacing: 1.0,
                             ),
                           ),
                         ],
@@ -99,6 +101,8 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900,
+                              color: Colors.grey.shade700,
+                              letterSpacing: 1.0,
                             ),
                           ),
                         ],
