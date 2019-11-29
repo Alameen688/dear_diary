@@ -46,7 +46,7 @@ class UserViewModel extends BaseViewModel {
       var responseData = response.data['data'];
       final String token = responseData['token'] ?? '';
       if (token.isNotEmpty) {
-        AuthHelper.saveInfo(token);
+        await AuthHelper.saveInfo(token);
       }
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
