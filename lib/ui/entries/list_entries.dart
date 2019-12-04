@@ -1,4 +1,4 @@
-import 'package:dear_diary/data/entry_test_data.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dear_diary/models/entry.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/entry.dart';
@@ -34,6 +34,8 @@ class _ListEntriesState extends State<ListEntries> {
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
               final Entry entry = entries[index];
+              final String heroTag = 'diary-image-${entry.id}';
+
               return GestureDetector(
                 onTap: () => Navigator.of(context)
                     .pushNamed('view-entry', arguments: entry),
@@ -47,30 +49,22 @@ class _ListEntriesState extends State<ListEntries> {
                         maxHeight: 280,
                         child: Stack(
                           children: <Widget>[
-                            Hero(
-                              tag: "diary-image-$index",
-                              child: Container(
-                                width: 200,
-                                height: 250,
-                                margin: EdgeInsets.only(left: 100),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      colorFilter: ColorFilter.mode(
-                                          Color(0xFF3C4858), BlendMode.lighten),
-                                      image: AssetImage(
-                                        entriesData[index < 5 ? index : 1]
-                                            .imageUrl,
-                                      ),
-                                      fit: BoxFit.cover),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color:
-                                            Color(0xFF3C4858).withOpacity(.4),
-                                        offset: Offset(5.0, 5.0),
-                                        blurRadius: 10.0),
-                                  ],
-                                ),
+                            CachedNetworkImage(
+                              imageUrl: entry.imageUrl,
+                              imageBuilder: (context, imageProvider) =>
+                                  EntryImage(
+                                heroTag: heroTag,
+                                imageProvider: imageProvider,
+                              ),
+                              placeholder: (context, url) => EntryImage(
+                                heroTag: heroTag,
+                                imageProvider:
+                                    AssetImage('images/entry_placeholder_image.jpg'),
+                              ),
+                              errorWidget: (context, url, error) => EntryImage(
+                                heroTag: heroTag,
+                                imageProvider:
+                                    AssetImage('images/entry_placeholder_image.jpg'),
                               ),
                             ),
                             Positioned(
@@ -150,6 +144,43 @@ class _ListEntriesState extends State<ListEntries> {
               );
             });
       }),
+    );
+  }
+}
+
+class EntryImage extends StatelessWidget {
+  final String heroTag;
+  final ImageProvider imageProvider;
+
+  const EntryImage({
+    Key key,
+    this.heroTag,
+    this.imageProvider,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: imageProvider,
+      child: Container(
+        width: 200,
+        height: 250,
+        margin: EdgeInsets.only(left: 100),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+              colorFilter:
+                  ColorFilter.mode(Color(0xFF3C4858), BlendMode.lighten),
+              image: imageProvider,
+              fit: BoxFit.cover),
+          boxShadow: [
+            BoxShadow(
+                color: Color(0xFF3C4858).withOpacity(.4),
+                offset: Offset(5.0, 5.0),
+                blurRadius: 10.0),
+          ],
+        ),
+      ),
     );
   }
 }
