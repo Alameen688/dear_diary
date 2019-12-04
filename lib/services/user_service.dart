@@ -1,9 +1,14 @@
+import 'package:dear_diary/services/api_service.dart';
 import 'package:dio/dio.dart';
 
-class UserService {
-  final Dio apiClient;
+import 'locator.dart';
 
-  UserService(this.apiClient);
+class UserService {
+  Dio apiClient;
+
+  static ApiService apiService = locator<ApiService>();
+
+  UserService() : this.apiClient = apiService.client;
 
   Future<Response> signUp(Map<String, String> userInfo) async {
     final String url = '/auth/signup';

@@ -1,9 +1,13 @@
+import 'package:dear_diary/services/api_service.dart';
 import 'package:dio/dio.dart';
 
-class EntryService {
-  final Dio apiClient;
+import 'locator.dart';
 
-  EntryService(this.apiClient);
+class EntryService {
+  Dio apiClient;
+  static ApiService apiService = locator<ApiService>();
+
+  EntryService(): this.apiClient = apiService.client;
 
   Future<Response> getEntries() async {
     return apiClient.get('/entries');

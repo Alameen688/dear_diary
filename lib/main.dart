@@ -1,4 +1,5 @@
 import 'package:dear_diary/managers/app_manager.dart';
+import 'package:dear_diary/services/api_service.dart';
 import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,11 +22,12 @@ List<Future> systemChromeTasks = [
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]),
-  setupLocator(),
 ];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait(systemChromeTasks);
+  setupLocator();
+  await setupApi();
 
   return runApp(
     MultiProvider(
@@ -40,6 +42,10 @@ void main() async {
       child: DearDiary(),
     ),
   );
+}
+
+Future<void> setupApi() async {
+  await locator<ApiService>().clientSetup();
 }
 
 class DearDiary extends StatelessWidget {

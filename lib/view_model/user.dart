@@ -1,4 +1,5 @@
 import 'package:dear_diary/models/user.dart';
+import 'package:dear_diary/services/api_service.dart';
 import 'package:dear_diary/services/dialog_service.dart';
 import 'package:dear_diary/services/locator.dart';
 import 'package:dear_diary/services/user_service.dart';
@@ -47,6 +48,8 @@ class UserViewModel extends BaseViewModel {
       final String token = responseData['token'] ?? '';
       if (token.isNotEmpty) {
         await AuthHelper.saveInfo(token);
+        ApiService apiService = locator<ApiService>();
+        apiService.setToken(token);
       }
     } on DioError catch (e) {
       final data = e.response?.data ?? {};
