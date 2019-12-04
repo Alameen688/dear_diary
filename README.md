@@ -3,7 +3,9 @@
 A diary application to pen down your thoughts
 
 ## Overview
-A diary app that connects to a REST API I built a while ago for managing personal diary entries.
+A diary app that connects to a REST API I built a long time ago for managing personal diary entries.
+
+See [REST API project](https://github.com/Alameen688/MyDiary/tree/develop) here 
 
 ## 🚀 Technology Stack
 
@@ -43,7 +45,7 @@ There is still room for improvement
 
 ## Contributing
 The sole purpose of this project is to facilate learning, PRs and all forms of contribution are very much welcome! 
-You can run the (REST API project)[https://github.com/Alameen688/oxygen] locally for development. 
+Consider running [REST API project](https://github.com/Alameen688/MyDiary/tree/develop) locally during development. 
 
 ## Code of Conduct
 Be nice and constructive :relaxed:. 
