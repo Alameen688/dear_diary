@@ -3,7 +3,7 @@
 A diary application to pen down your thoughts
 
 ## Overview
-A diary app that connects to a REST API I built a long time ago for managing personal diary entries.
+A diary app that connects to a REST API I built a while ago for managing personal diary entries.
 
 See [REST API project](https://github.com/Alameen688/MyDiary/tree/develop) here 
 
@@ -57,6 +57,11 @@ Don't be a jerk to others! :triangular_flag_on_post:
     <td align="center"><a href="https://twitter.com/general_mentos"><img src="https://avatars3.githubusercontent.com/u/9039613?s=460&v=4" width="100px;" alt="Ogundiran Al-Ameen"/><br /><sub><b>Ogundiran Al-Ameen</b></sub></a><br /><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Code">💻</a> <a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Documentation">📖</a><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Tests">⚠️</a></td>
   </tr>
 </table>
+
+## Credits
+Random images generated from [Unsplash](https://unsplash.com/)
+
+Entry PLaceholder Photo by [Kelly Sikkemma](https://unsplash.com/@kellysikkema) on Unsplash
 
 ## License
 Under [MIT license](/LICENSE) but don't forget to reference :).
