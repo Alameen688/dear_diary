@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dear_diary/models/entry.dart';
 import 'package:dear_diary/ui/common/diary_confirm_dialog.dart';
 import 'package:dear_diary/view_model/entry.dart';
@@ -39,6 +40,7 @@ class _ViewEntryState extends State<ViewEntry>
   @override
   Widget build(BuildContext context) {
     final Entry entry = ModalRoute.of(context).settings.arguments;
+    final String heroTag = 'diary-image-${entry.id}';
 
     return Scaffold(
       body: Stack(
@@ -49,21 +51,19 @@ class _ViewEntryState extends State<ViewEntry>
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  Hero(
-                    tag: "diary-image-0",
-                    child: Container(
-                      height: 340.0,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                                Color(0xFF3C4858), BlendMode.lighten),
-                            image: AssetImage(
-                              'images/entry_1.jpg',
-                            ),
-                            fit: BoxFit.cover),
-                      ),
+                  CachedNetworkImage(
+                    imageUrl: entry.imageUrl,
+                    imageBuilder: (context, imageProvider) => EntryHeaderImage(
+                      heroTag: heroTag,
+                      imageProvider: imageProvider,
+                    ),
+                    placeholder: (context, url) => EntryHeaderImage(
+                      heroTag: heroTag,
+                      imageProvider: AssetImage('images/entry_placeholder_image.jpg'),
+                    ),
+                    errorWidget: (context, url, error) => EntryHeaderImage(
+                      heroTag: heroTag,
+                      imageProvider: AssetImage('images/entry_placeholder_image.jpg'),
                     ),
                   ),
                   Positioned(
@@ -278,5 +278,35 @@ class _ViewEntryState extends State<ViewEntry>
   void dispose() {
     _optionsAnimationController.dispose();
     super.dispose();
+  }
+}
+
+class EntryHeaderImage extends StatelessWidget {
+  final String heroTag;
+  final ImageProvider imageProvider;
+
+  const EntryHeaderImage({
+    Key key,
+    this.heroTag,
+    this.imageProvider,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: imageProvider,
+      child: Container(
+        height: 340.0,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          image: DecorationImage(
+              colorFilter:
+                  ColorFilter.mode(Color(0xFF3C4858), BlendMode.lighten),
+              image: imageProvider,
+              fit: BoxFit.cover),
+        ),
+      ),
+    );
   }
 }
