@@ -51,6 +51,13 @@ Consider running [REST API project](https://github.com/Alameen688/MyDiary/tree/d
 Be nice and constructive :relaxed:. 
 Don't be a jerk to others! :triangular_flag_on_post:
 
+## Contributors
+<table>
+  <tr>
+    <td align="center"><a href="https://twitter.com/general_mentos"><img src="https://avatars3.githubusercontent.com/u/9039613?s=460&v=4" width="100px;" alt="Ogundiran Al-Ameen"/><br /><sub><b>Ogundiran Al-Ameen</b></sub></a><br /><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Code">💻</a> <a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Documentation">📖</a><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
 ## License
 Under [MIT license](/LICENSE) but don't forget to reference :).
 
