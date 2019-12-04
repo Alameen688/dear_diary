@@ -28,22 +28,8 @@ class _ListEntriesState extends State<ListEntries> {
     return SafeArea(
       child: Consumer<EntryViewModel>(builder: (context, model, child) {
         List<Entry> entries = model.entries;
-        if (model.viewStatus == ViewStatus.Loading) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 20),
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Color(0xFF3C4858)),
-                ),
-              ),
-              Text('Fetching your entries '),
-            ],
-          );
-        }
+        if (model.viewStatus == ViewStatus.Loading) return LoadingView();
+        if (entries.length < 1) return EmptyView();
         return ListView.builder(
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
@@ -164,6 +150,50 @@ class _ListEntriesState extends State<ListEntries> {
               );
             });
       }),
+    );
+  }
+}
+
+class EmptyView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(bottom: 15.0),
+          child: Text(
+            'No entries yet',
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text('Click the + button to start writing'),
+        )
+      ],
+    );
+  }
+}
+
+class LoadingView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(bottom: 20),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Color(0xFF3C4858)),
+          ),
+        ),
+        Text('Fetching your entries '),
+      ],
     );
   }
 }
