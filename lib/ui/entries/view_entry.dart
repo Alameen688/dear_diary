@@ -255,6 +255,8 @@ class _ViewEntryState extends State<ViewEntry>
     _optionsAnimationController.reverse();
   }
 
+  // TODO: Handle delete action loading state
+
   void _onDeleteClicked(int entryId) {
     showDialog(
       context: context,
