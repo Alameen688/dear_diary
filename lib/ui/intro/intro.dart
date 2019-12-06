@@ -1,5 +1,7 @@
+import 'package:dear_diary/ui/auth/sign_up.dart';
 import 'package:flutter/material.dart';
 
+import '../auth/login.dart';
 import 'intro_slide.dart';
 
 class Intro extends StatelessWidget {
@@ -31,7 +33,7 @@ class Intro extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('signup');
+                      Navigator.of(context).pushNamed(SignUp.routeName);
                     },
                     child: Text(
                       'Create Account',
@@ -49,7 +51,7 @@ class Intro extends StatelessWidget {
                         side: BorderSide(color: Color(0xFFC4C4C4), width: 1.2),
                         borderRadius: BorderRadius.circular(30.0)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('login');
+                      Navigator.of(context).pushNamed(Login.routeName);
                     },
                     child: Text(
                       'Login',

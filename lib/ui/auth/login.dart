@@ -1,9 +1,12 @@
+import 'package:dear_diary/ui/auth/sign_up.dart';
 import 'package:dear_diary/utils/input_validator.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/user.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../home.dart';
 
 class Login extends StatefulWidget {
   static const routeName = 'login';
@@ -23,7 +26,7 @@ class _LoginState extends State<Login> {
   }
 
   _handleSignUpTap() {
-    Navigator.of(context).pushNamed('signup');
+    Navigator.of(context).pushNamed(SignUp.routeName);
   }
 
   @override
@@ -232,7 +235,7 @@ class _LoginState extends State<Login> {
         .login(_formData);
     if (response) {
       Navigator.of(context)
-          .pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+          .pushNamedAndRemoveUntil(Home.routeName, (Route<dynamic> route) => false);
     }
   }
 

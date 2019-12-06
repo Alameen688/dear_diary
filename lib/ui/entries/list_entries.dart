@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dear_diary/models/entry.dart';
+import 'package:dear_diary/ui/entries/view_entry.dart';
 import 'package:dear_diary/view_model/base.dart';
 import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _ListEntriesState extends State<ListEntries> {
 
               return GestureDetector(
                 onTap: () => Navigator.of(context)
-                    .pushNamed('view-entry', arguments: entry),
+                    .pushNamed(ViewEntry.routeName, arguments: entry),
                 child: Container(
                   margin: EdgeInsets.only(bottom: 15.0, top: 15.0),
                   child: Row(

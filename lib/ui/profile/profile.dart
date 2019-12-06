@@ -4,6 +4,8 @@ import 'package:dear_diary/view_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../intro/intro.dart';
+
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -209,7 +211,7 @@ class LogoutButton extends StatelessWidget {
       onPressed: () async {
         await AuthHelper.removeUserToken();
         Navigator.of(context)
-            .pushNamedAndRemoveUntil('intro', (Route<dynamic> route) => false);
+            .pushNamedAndRemoveUntil(Intro.routeName, (Route<dynamic> route) => false);
       },
       child: Text(
         'LOG OUT',
