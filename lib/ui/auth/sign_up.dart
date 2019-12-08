@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'login.dart';
+
 class SignUp extends StatefulWidget {
   static const routeName = 'signup';
 
@@ -24,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   _handleLoginTap() {
-    Navigator.of(context).pushNamed('login');
+    Navigator.of(context).pushNamed(Login.routeName);
   }
 
   @override
@@ -252,7 +254,7 @@ class _SignUpState extends State<SignUp> {
     final response = await Provider.of<UserViewModel>(context, listen: false)
         .create(_formData);
     if (response) {
-      Navigator.of(context).popAndPushNamed('login');
+      Navigator.of(context).popAndPushNamed(Login.routeName);
     }
   }
 

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../home.dart';
+
 class EditEntry extends StatefulWidget {
   static const routeName = 'edit-entry';
 
@@ -138,7 +140,7 @@ class _EditEntryState extends State<EditEntry> {
     final response = await Provider.of<EntryViewModel>(context, listen: false)
         .update(_formData);
     if (response) {
-      Navigator.of(context).popAndPushNamed('home');
+      Navigator.of(context).popAndPushNamed(Home.routeName);
     }
   }
 }

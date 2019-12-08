@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dear_diary/models/entry.dart';
 import 'package:dear_diary/ui/common/diary_confirm_dialog.dart';
+import 'package:dear_diary/ui/entries/edit_entry.dart';
 import 'package:dear_diary/view_model/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../home.dart';
 
 class ViewEntry extends StatefulWidget {
   static const routeName = 'view-entry';
@@ -179,7 +182,7 @@ class _ViewEntryState extends State<ViewEntry>
                           child: InkResponse(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed('edit-entry', arguments: entry);
+                                  .pushNamed(EditEntry.routeName, arguments: entry);
                             },
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -272,7 +275,7 @@ class _ViewEntryState extends State<ViewEntry>
     final response = await Provider.of<EntryViewModel>(context, listen: false)
         .delete(entryId);
     if (response) {
-      Navigator.of(context).popAndPushNamed('home');
+      Navigator.of(context).popAndPushNamed(Home.routeName);
     }
   }
 

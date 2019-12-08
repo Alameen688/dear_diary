@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../home.dart';
+
 class AddEntry extends StatefulWidget {
   static const routeName = 'add-entry';
 
@@ -133,7 +135,7 @@ class _AddEntryState extends State<AddEntry> {
     final response = await Provider.of<EntryViewModel>(context, listen: false)
         .create(_formData);
     if (response) {
-      Navigator.of(context).pushNamed('home');
+      Navigator.of(context).pushNamed(Home.routeName);
     }
   }
 }
