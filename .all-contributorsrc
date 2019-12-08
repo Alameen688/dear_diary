@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "rodrigobastosv",
+      "name": "rodrigobastosv",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12686272?v=4",
+      "profile": "https://github.com/rodrigobastosv",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "dear_diary",
+  "projectOwner": "Alameen688",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
