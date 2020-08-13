@@ -1,6 +1,7 @@
 # 📓 Dear Diary
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A diary application to pen down your thoughts
 
@@ -61,8 +62,8 @@ Don't be a jerk to others! :triangular_flag_on_post:
 <!-- markdownlint-disable -->
 <table>
   <tr>
-     <td align="center"><a href="https://twitter.com/general_mentos"><img src="https://avatars3.githubusercontent.com/u/9039613?s=460&v=4" width="100px;" alt="Ogundiran Al-Ameen"/><br /><sub><b>Ogundiran Al-Ameen</b></sub></a><br /><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Code">💻</a> <a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Documentation">📖</a><a href="https://github.com/Alameen688/dear_diary/commits?author=Alameen688" title="Tests">⚠️</a></td>
-     <td align="center"><a href="https://github.com/rodrigobastosv"><img src="https://avatars3.githubusercontent.com/u/12686272?v=4" width="100px;" alt="rodrigobastosv"/><br /><sub><b>rodrigobastosv</b></sub></a><br /><a href="https://github.com/Alameen688/dear_diary/commits?author=rodrigobastosv" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/rodrigobastosv"><img src="https://avatars3.githubusercontent.com/u/12686272?v=4" width="100px;" alt=""/><br /><sub><b>rodrigobastosv</b></sub></a><br /><a href="https://github.com/Alameen688/dear_diary/commits?author=rodrigobastosv" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ericomine"><img src="https://avatars3.githubusercontent.com/u/3171646?v=4" width="100px;" alt=""/><br /><sub><b>Eric Omine</b></sub></a><br /><a href="#maintenance-ericomine" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
