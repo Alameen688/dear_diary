@@ -48,6 +48,10 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    packagingOptions {
+        pickFirst 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 flutter {
