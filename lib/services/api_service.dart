@@ -8,6 +8,12 @@ class ApiService {
   ApiService() {
     this.client = Dio();
     this.client.options.baseUrl = BASE_URL;
+    this.client.interceptors.add(LogInterceptor(
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true, 
+        responseBody: true
+    ));
   }
 
   void setToken(String authToken) {
