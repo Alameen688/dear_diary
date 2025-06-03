@@ -299,7 +299,7 @@ class EntryHeaderImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: imageProvider,
+      tag: heroTag,
       child: Container(
         height: 340.0,
         width: MediaQuery.of(context).size.width,

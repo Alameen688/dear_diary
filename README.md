@@ -46,7 +46,7 @@ There is still room for improvement
 - Show some :heart: and :star: the repo to encourage more useful OS projects
 
 ## Contributing
-The sole purpose of this project is to facilate learning, PRs and all forms of contribution are very much welcome! 
+The sole purpose of this project is to facilitate learning, PRs and all forms of contribution are very much welcome!
 Consider running [REST API project](https://github.com/Alameen688/MyDiary/tree/develop) locally during development. 
 
 ## Code of Conduct
