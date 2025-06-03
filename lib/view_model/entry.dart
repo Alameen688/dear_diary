@@ -59,7 +59,7 @@ class EntryViewModel extends BaseViewModel {
       response = await _entryService.updateEntry(formData);
       setStatus(ViewStatus.Ready);
       await _dialogService.showAlertDialog(
-          'Well recieved 😎! Thanks for the update',
+          'Well received 😎! Thanks for the update',
           barrierDismissible: false);
     } on DioError catch (e) {
       final data = e.response?.data ?? {};

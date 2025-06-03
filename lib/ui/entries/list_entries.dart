@@ -162,7 +162,7 @@ class EntryImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: imageProvider,
+      tag: heroTag,
       child: Container(
         width: 200,
         height: 250,
